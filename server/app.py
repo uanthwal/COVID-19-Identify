@@ -37,6 +37,13 @@ def signup():
         else:
             return jsonify({"code":"200","message":"user already exist"})
 
+@app.route('/get_questions',methods = ['POST'])
+def get_questions():
+    if request.method == 'POST':
+        data = request.json
+        day = data['day']
+        que_list = day_question(day)
+        return jsonify(que_list)
 
 if __name__ == '__main__':
     record = cursor.fetchone()

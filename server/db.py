@@ -10,9 +10,9 @@ try:
     db_Info = connection.get_server_info()
     # print("Connected to MySQL Server version ", db_Info)
     cursor = connection.cursor()
-    # cursor.execute("select database();")
-    # record = cursor.fetchone()
-    # print("connected to database: ", record)
+    cursor.execute("select database();")
+    record = cursor.fetchone()
+    print("connected to database: ", record)
 
 
     #--------------create tables-----------------
@@ -29,6 +29,20 @@ try:
     # print("users Table created successfully ")
 
 
+    # fixed_questions = """CREATE TABLE fixed_questions ( 
+    #                          day int NOT NULL,
+    #                          que varchar(1000),
+    #                          type varchar(20) NOT NULL,
+    #                          options varchar(1000) NOT NULL
+    #                          )"""
+
+    # cursor = connection.cursor()
+    # result = cursor.execute(fixed_questions)
+    # print("fixed_questions Table created successfully ")
+
+
+
+
     #----------insert operation code ----------------
 
     # mySql_insert_query = """INSERT INTO users (email_id, phone_number, password) 
@@ -41,6 +55,29 @@ try:
     # connection.commit()
     # print(cursor.rowcount, "Record inserted successfully into Laptop table")
     # cursor.close()
+
+
+    # insert_que = """INSERT INTO fixed_questions (day, que, type, options) 
+    #                             VALUES (%s, %s, %s, %s) """
+
+    # cursor = connection.cursor()
+    # recordTuple_list = [
+    # ("1", "Which of the following symptoms are you currently experiencing? Select all that apply.", 
+    #     "multiple",
+    #     "Fever,Chills,Shortness of breath,Diarrhea,Runny nose"),
+    # ("1", "Have you had close contact with someone who is coughing, has a fever, or is otherwise sick and has been outside\
+    #     of Canada in the last 14 days or has been diagnosed with COVID-19?",
+    #     "single",
+    #     "Yes,No")
+    # ]
+
+    # for recordTuple in recordTuple_list:
+    #     cursor.execute(insert_que, recordTuple)
+    #     connection.commit()
+    #     print(cursor.rowcount, "Record inserted successfully into Laptop table")
+
+    # cursor.close()
+
 
 
 

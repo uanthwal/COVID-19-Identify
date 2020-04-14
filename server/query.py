@@ -27,4 +27,18 @@ def signup_insert(ph,pas,email):
         print("Failed to insert into MySQL table {}".format(error))
         return False
 
+def day_question(day):
+    sql_select_query = "select * from fixed_questions where day = {0}".format(day)
+    cursor.execute(sql_select_query)
+    records = cursor.fetchall()
+    que_list = []
 
+    for row in records:
+        que_dict = {}
+        que_dict['day'] = row[0]
+        que_dict['que'] = row[1]
+        que_dict['type'] = row[2]
+        que_dict['options'] = row[3]
+        que_list.append(que_dict)
+
+    return que_list
