@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0814b323-2a1b-4402-9e93-097e42e794a9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/create-new-tracker/create-new-tracker.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/create-new-tracker/create-new-tracker.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/create-new-tracker/create-new-tracker.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/create-new-tracker/create-new-tracker.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1aY65NKLa4Hp0YAaIUgqFtbAhGT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0814b323-2a1b-4402-9e93-097e42e794a9" name="Default Changelist" comment="" />
+      <created>1586899995968</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586899995968</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="354" y="95" key="#Inspections" timestamp="1586905261818">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="354" y="95" key="#Inspections/0.0.1440.900@0.0.1440.900" timestamp="1586905261818" />
+    <state x="354" y="107" key="#Inspections/0.23.1440.797@0.23.1440.797" timestamp="1586901944048" />
+    <state x="221" y="42" key="SettingsEditor" timestamp="1586905360180">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="221" y="42" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1586905360180" />
+    <state x="221" y="60" key="SettingsEditor/0.23.1440.797@0.23.1440.797" timestamp="1586902234156" />
+    <state x="385" y="144" width="670" height="676" key="search.everywhere.popup" timestamp="1586900306793">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="385" y="144" width="670" height="676" key="search.everywhere.popup/0.23.1440.797@0.23.1440.797" timestamp="1586900306793" />
+  </component>
+</project>

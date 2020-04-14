@@ -1,5 +1,17 @@
 <p>create-new-tracker works!</p>
 
-<div *ngFor="let question of questions">
-
+<div *ngFor="let q of questionsList">
+    <div>
+        {{q.question}}
+    </div>
+    <div *ngIf="q.q_type == 'S'">
+        <div *ngFor="let o of q.options">
+            {{o}}
+        </div>
+    </div>
+    <div *ngIf="q.q_type == 'M'">
+        <div *ngFor="let o of q.options">
+            {{o}}
+        </div>
+    </div>
 </div>

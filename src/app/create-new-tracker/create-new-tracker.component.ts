@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-create-new-tracker',
@@ -7,26 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateNewTrackerComponent implements OnInit {
   questionsList = [];
-  constructor() {}
+  constructor(private _appService: AppService) {}
 
   ngOnInit(): void {
-    this.questionsList = [
-      {
-        day: 1,
-        options: ["Fever","Running Nose", "Vomiting"],
-        question: 'Which of the following symptoms?',
-        type: 'M',
-      },{
-        day: 1,
-        options: ["ABC","PQR", "XYZ"],
-        question: 'Which of the following symptoms?',
-        type: 'M',
-      },{
-        day: 1,
-        options: ["Y","N"],
-        question: 'Are you vegetarian?',
-        type: 'S',
-      },
-    ];
+    this._appService.getQuestionByDay({"day":"1"}).subscribe((data: {}) => {
+      if (null != data && data['code'] == 200) {
+        this.questionsList = data['data'];
+      } else {
+        alert(data['message']);
+      }
+    });
   }
 }

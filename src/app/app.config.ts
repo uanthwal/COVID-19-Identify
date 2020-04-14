@@ -13,7 +13,7 @@ export var URL_CONFIG = {
 export function getConfigs() {
     if (protocol == "http://localhost:4200") {
         return {
-            BASE_URL: "http://travel-canada-elb-1597027388.us-east-1.elb.amazonaws.com",
+            BASE_URL: "http://localhost:5000",
         };
     } else {
         return {
