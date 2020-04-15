@@ -11,7 +11,7 @@ export class CreateNewTrackerComponent implements OnInit {
   constructor(private _appService: AppService) {}
 
   ngOnInit(): void {
-    this._appService.getQuestionByDay({"day":"1"}).subscribe((data: {}) => {
+    this._appService.getQuestionByDay({ day: '1' }).subscribe((data: {}) => {
       if (null != data && data['code'] == 200) {
         this.questionsList = data['data'];
       } else {
@@ -19,4 +19,26 @@ export class CreateNewTrackerComponent implements OnInit {
       }
     });
   }
+
+  onClickCheckboxItem(oIndex,qIndex) {
+    let option = this.questionsList[qIndex]['options'][oIndex];
+    option.selected = !option.selected;
+    this.questionsList[qIndex]['options'][oIndex] = option;
+  }
+
+  onClickRadioItem(oIndex,qIndex) {
+    let options = this.questionsList[qIndex]['options']
+    options.forEach((e,index) => {
+      if(index == oIndex)
+        e.selected = true;
+      else
+        e.selected = false;
+    });
+    this.questionsList[qIndex]['options'] = options;
+  }
+
+  onClickSubmit(){
+    
+  }
+
 }

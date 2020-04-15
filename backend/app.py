@@ -56,7 +56,11 @@ def get_questions_by_day():
     for q_object in questions_list:
       options = q_object['options']
       split_options = options.split(',')
-      q_object['options'] = split_options
+      options_list = []
+      for i in split_options:
+        options_list.append({'name':i, 'id':i, 'selected': False})
+        
+      q_object['options'] = options_list
     return jsonify({"code": "200", "data": questions_list})
 
 

@@ -1,0 +1,70 @@
+.q-container {
+    @media screen and (min-width: 414px) and (max-width: 1445px) {
+    margin: 5% 16%;
+    padding: 2% 4%;
+    background: #0000000f;
+
+    .h-text {
+        font-size: 20px;
+    }
+    .h-text-2 {
+        font-size: 18px;
+        margin-top: 30px;
+        margin-bottom: -20px;
+    }
+    .question {
+        .q-text {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .options {
+            display: flex;
+            text-align: center;
+            .option {
+                margin-right: 15px;
+            }
+        }
+    }
+    .add-comments {
+        margin-top: 30px;
+        textarea {
+            height: 100px;
+            width: 399px;
+        }
+    }
+}
+@media screen and (min-width: 0px) and (max-width: 414px) {
+    margin:2%;
+    padding: 3%;
+    background: #0000000f;
+
+    .h-text {
+        font-size: 20px;
+    }
+    .h-text-2 {
+        font-size: 18px;
+        margin-top: 30px;
+        margin-bottom: -20px;
+    }
+    .question {
+        .q-text {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .options {
+            display: flex;
+            text-align: center;
+            .option {
+                margin-right: 15px;
+            }
+        }
+    }
+    .add-comments {
+        margin-top: 30px;
+        textarea {
+            height: 100px;
+            width: 359px;
+        }
+    }
+}
+}

@@ -1,17 +1,34 @@
-<p>create-new-tracker works!</p>
-
-<div *ngFor="let q of questionsList">
+<div class="q-container">
+    <div class="h-text">
+        Day 1: Health Tracker for: James Smith
+    </div>
+    <div class="h-text-2">
+        Please answer the following questions:
+    </div>
+    <div class="question" *ngFor="let q of questionsList; let qIndex = index">
+        <div class="q-text">
+            {{q.question}}
+        </div>
+        <div class="options" *ngIf="q.q_type == 'S'">
+            <div class="option" *ngFor="let o of q.options; let oIndex = index" (click)="onClickRadioItem(oIndex,qIndex)">
+                <i class="fa" [ngClass]="o.selected ? 'fa-check-circle':'fa-circle'" aria-hidden="true"></i>
+                {{o.name}}
+            </div>
+        </div>
+        <div class="options" *ngIf="q.q_type == 'M'">
+            <div class="option" *ngFor="let o of q.options; let oIndex = index" (click)="onClickCheckboxItem(oIndex,qIndex)">
+                <i class="fa" [ngClass]="o.selected ? 'fa-check-square':'fa-square'" aria-hidden="true"></i>
+                {{o.name}}
+            </div>
+        </div>
+    </div>
+    <div class="add-comments">
+        Additional Comments:
+        <div>
+            <textarea></textarea>
+        </div>
+    </div>
     <div>
-        {{q.question}}
-    </div>
-    <div *ngIf="q.q_type == 'S'">
-        <div *ngFor="let o of q.options">
-            {{o}}
-        </div>
-    </div>
-    <div *ngIf="q.q_type == 'M'">
-        <div *ngFor="let o of q.options">
-            {{o}}
-        </div>
+        <button (click)="onClickSubmit()">SUBMIT</button>
     </div>
 </div>
