@@ -7,7 +7,8 @@ export var URL_CONFIG = {
     BASE_URL: getConfigs()["BASE_URL"],
     LOGIN: "/login",
     SIGNUP: "/register",
-    GET_QUESTIONS_BY_DAY: "/get-questions-by-day"
+    GET_QUESTIONS_BY_DAY: "/get-questions-by-day",
+    CREATE_NEW_TRACKER: "/create-new-tracker"
 };
 
 export function getConfigs() {

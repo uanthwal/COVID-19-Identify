@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CreateNewTrackerComponent } from './create-new-tracker/create-new-tracker.component';
 import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]

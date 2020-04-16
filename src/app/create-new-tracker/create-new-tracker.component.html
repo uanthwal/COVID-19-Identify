@@ -6,7 +6,7 @@
         Please answer the following questions:
     </div>
     <div class="question" *ngFor="let q of questionsList; let qIndex = index">
-        <div class="q-text">
+        <div class="q-text" *ngIf="q.q_type != 'O'">
             {{q.question}}
         </div>
         <div class="options" *ngIf="q.q_type == 'S'">
@@ -25,10 +25,10 @@
     <div class="add-comments">
         Additional Comments:
         <div>
-            <textarea></textarea>
+            <textarea [(ngModel)]="additionalComments" ></textarea>
         </div>
     </div>
-    <div>
+    <div class="button-block">
         <button (click)="onClickSubmit()">SUBMIT</button>
     </div>
 </div>

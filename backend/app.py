@@ -1,9 +1,10 @@
 from flask import Flask
 from flask import request, jsonify
 from flask_cors import CORS
+from datetime import datetime
 
-import query as q
 from db import *
+import query as q
 
 app = Flask(__name__)
 CORS(app)
@@ -55,13 +56,47 @@ def get_questions_by_day():
     questions_list = q.get_questions_by_day(day)
     for q_object in questions_list:
       options = q_object['options']
-      split_options = options.split(',')
+      split_options = []
+      if options is not None:
+        split_options = options.split(',')
       options_list = []
       for i in split_options:
         options_list.append({'name':i, 'id':i, 'selected': False})
-        
+
       q_object['options'] = options_list
     return jsonify({"code": "200", "data": questions_list})
+
+
+def add_tracker_data(user_id, data):
+  tracker_id = q.get_tracker_id_by_user_id(user_id)
+  questions_ans_info = data['questionAndAnswersInfo']
+  values_list = []
+  for obj in questions_ans_info:
+    values_list.append((tracker_id, obj['day'], obj['question_id'], obj['answer']))
+  if q.add_answer_for_day(values_list):
+    return True
+  return False
+
+
+@app.route('/create-new-tracker', methods=['POST'])
+def create_new_tracker():
+  if request.method == 'POST':
+    data = request.json
+    print("Create new tracker request data: ", data)
+    user_id = data['userId']
+    tracker_id = q.get_tracker_id_by_user_id(user_id)
+    if tracker_id is not None:
+      return jsonify({"code": "205", "message": "User already has an active health tracker"})
+
+    now = datetime.now()
+    created_date = now.strftime('%Y-%m-%d %H:%M:%S')
+    if q.create_new_tracker(user_id, created_date):
+      if add_tracker_data(user_id, data):
+        return jsonify({"code": "200", "message": "Health tracker created successfully!" })
+      else:
+        q.deactivate_health_tracker(user_id)
+
+    return jsonify({"code": "206", "message": "Internal Server Error" })
 
 
 if __name__ == '__main__':
