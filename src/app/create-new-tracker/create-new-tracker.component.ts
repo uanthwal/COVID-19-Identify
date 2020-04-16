@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-new-tracker',
@@ -9,8 +10,8 @@ import { AppService } from '../app.service';
 export class CreateNewTrackerComponent implements OnInit {
   questionsList = [];
   additionalComments;
-  
-  constructor(private _appService: AppService) {}
+
+  constructor(private _appService: AppService, private _router: Router) {}
 
   ngOnInit(): void {
     this._appService.getQuestionByDay({ day: '1' }).subscribe((data: {}) => {
@@ -59,12 +60,13 @@ export class CreateNewTrackerComponent implements OnInit {
       questionAndAnswersInfo.push(tempQAObj);
     });
     let payload = {
-      userId : '2',
-      questionAndAnswersInfo: questionAndAnswersInfo
-    }
+      userId: '1',
+      questionAndAnswersInfo: questionAndAnswersInfo,
+    };
     this._appService.createNewTracker(payload).subscribe((data: {}) => {
       if (null != data && data['code'] == 200) {
         alert(data['message']);
+        this._router.navigate(['/home']);
       } else {
         alert(data['message']);
       }
