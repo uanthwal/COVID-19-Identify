@@ -1,26 +1,35 @@
 import mysql.connector
 from mysql.connector import Error
 
-try:
-    connection = mysql.connector.connect(host='localhost',
-                                         database='identify',
-                                         user='root')
 
-    # connection = mysql.connector.connect(host='localhost',
-    #                                      database='identify',
-    #                                      user='root',
-    #                                      password='vish591996')
-    db_Info = connection.get_server_info()
-    # print("Connected to MySQL Server version ", db_Info)
-    cursor = connection.cursor()
-    cursor.execute("select database();")
-    record = cursor.fetchone()
-    print("connected to database: ", record)
+def open_conn():
+    try:
+        connection = mysql.connector.connect(host='localhost',
+                                             database='identify',
+                                             user='root',
+                                             password='vish591996')
+       
+        db_Info = connection.get_server_info()
+        # print("Connected to MySQL Server version ", db_Info)
+        cursor = connection.cursor()
+        cursor.execute("select database();")
+        # record = cursor.fetchone()
+        # print("connected to database: ", record)
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+
+def close_conn():
+    if (connection.is_connected()):
+        cursor.close()
+        connection.close()
+        print("MySQL connection is closed")
 
 
-    #--------------create tables-----------------
 
-    # mySql_Create_users_table = """CREATE TABLE users (
+ #--------------create tables-----------------
+
+    # mySql_Create_users_table = """CREATE TABLE users ( 
     #                          id int AUTO_INCREMENT NOT NULL,
     #                          email_id varchar(50),
     #                          phone_number varchar(20) NOT NULL,
@@ -32,7 +41,7 @@ try:
     # print("users Table created successfully ")
 
 
-    # fixed_questions = """CREATE TABLE fixed_questions (
+    # fixed_questions = """CREATE TABLE fixed_questions ( 
     #                          day int NOT NULL,
     #                          que varchar(1000),
     #                          type varchar(20) NOT NULL,
@@ -48,7 +57,7 @@ try:
 
     #----------insert operation code ----------------
 
-    # mySql_insert_query = """INSERT INTO users (email_id, phone_number, password)
+    # mySql_insert_query = """INSERT INTO users (email_id, phone_number, password) 
     #                             VALUES (%s, %s, %s) """
 
     # cursor = connection.cursor()
@@ -60,12 +69,12 @@ try:
     # cursor.close()
 
 
-    # insert_que = """INSERT INTO fixed_questions (day, que, type, options)
+    # insert_que = """INSERT INTO fixed_questions (day, que, type, options) 
     #                             VALUES (%s, %s, %s, %s) """
 
     # cursor = connection.cursor()
     # recordTuple_list = [
-    # ("1", "Which of the following symptoms are you currently experiencing? Select all that apply.",
+    # ("1", "Which of the following symptoms are you currently experiencing? Select all that apply.", 
     #     "multiple",
     #     "Fever,Chills,Shortness of breath,Diarrhea,Runny nose"),
     # ("1", "Have you had close contact with someone who is coughing, has a fever, or is otherwise sick and has been outside\
@@ -80,19 +89,3 @@ try:
     #     print(cursor.rowcount, "Record inserted successfully into Laptop table")
 
     # cursor.close()
-
-
-
-
-
-except Error as e:
-    print("Error while connecting to MySQL", e)
-# finally:
-#     if (connection.is_connected()):
-#         cursor.close()
-#         connection.close()
-#         print("MySQL connection is closed")
-
-
-#dbuser - identify2020
-#root - identifyroot2020

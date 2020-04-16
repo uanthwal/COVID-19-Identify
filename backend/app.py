@@ -100,6 +100,4 @@ def create_new_tracker():
 
 
 if __name__ == '__main__':
-  record = cursor.fetchone()
-  print("Connected to database: ", record)
   app.run(debug=True, host='0.0.0.0', port='5000')
