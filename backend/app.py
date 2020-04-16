@@ -3,7 +3,6 @@ from flask import request, jsonify
 from flask_cors import CORS
 from datetime import datetime
 
-from db import *
 import query as q
 
 app = Flask(__name__)
@@ -118,6 +117,4 @@ def get_health_tracker():
 
 
 if __name__ == '__main__':
-  record = cursor.fetchone()
-  print("Connected to database: ", record)
   app.run(debug=True, host='0.0.0.0', port='5000')
