@@ -97,10 +97,24 @@
         }
         &:hover {
           cursor: pointer;
-          background-color: #4CAF50;
+          background-color: #4caf50;
           color: white;
-          border: 1px solid #4CAF50;
+          border: 1px solid #4caf50;
         }
+      }
+    }
+    .active-ht-block {
+      padding: 10px;
+      border: 1px solid gray;
+      margin: 0.2%;
+      font-size: 19px;
+      display: flex;
+      align-items: center;
+      .first-block {
+        flex: 1;
+      }
+      .second-block {
+        margin-right: 40px;
       }
     }
   }
@@ -161,6 +175,20 @@
         }
         &:hover {
           cursor: pointer;
+        }
+      }
+      .active-ht-block {
+        padding: 10px;
+        border: 1px solid gray;
+        margin: 1% 0.2%;
+        font-size: 19px;
+        display: flex;
+        align-items: center;
+        .first-block {
+          flex: 1;
+        }
+        .second-block {
+          margin-right: 10px;
         }
       }
     }

@@ -61,7 +61,7 @@ def get_questions_by_day():
         split_options = options.split(',')
       options_list = []
       for i in split_options:
-        options_list.append({'name':i, 'id':i, 'selected': False})
+        options_list.append({'name': i, 'id': i, 'selected': False})
 
       q_object['options'] = options_list
     return jsonify({"code": "200", "data": questions_list})
@@ -92,11 +92,29 @@ def create_new_tracker():
     created_date = now.strftime('%Y-%m-%d %H:%M:%S')
     if q.create_new_tracker(user_id, created_date):
       if add_tracker_data(user_id, data):
-        return jsonify({"code": "200", "message": "Health tracker created successfully!" })
+        return jsonify({"code": "200", "message": "Health tracker created successfully and your data has been "
+                                                  "recorded successfully!"})
       else:
         q.deactivate_health_tracker(user_id)
 
-    return jsonify({"code": "206", "message": "Internal Server Error" })
+    return jsonify({"code": "206", "message": "Internal Server Error"})
+
+
+@app.route('/get-health-tracker', methods=['POST'])
+def get_health_tracker():
+  if request.method == 'POST':
+    data = request.json
+    print("Get health tracker request data: ", data)
+    user_id = data['userId']
+    tracker_id = q.get_tracker_id_by_user_id(user_id)
+    if tracker_id is None:
+      return jsonify({"code": "207", "message": "No active health trackers for user"})
+
+    ht_data = q.get_health_tracker_data(user_id)
+    if ht_data is not None:
+      return jsonify({"code": "200", "data": ht_data})
+
+    return jsonify({"code": "208", "message": "Internal Server Error"})
 
 
 if __name__ == '__main__':

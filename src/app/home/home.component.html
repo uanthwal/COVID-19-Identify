@@ -34,13 +34,30 @@
   </div>
   <div class="tracker-section">
     <div class="tracker-header">
-      Health Assesments: You have 0 health assesment(s) in progress.
+      Health Assesments: You have {{ healthTrackerCount }} health assesment(s)
+      in progress.
     </div>
-    <div class="create-new-ht" (click)="onClickCreateNewTracker()">
+    <div
+      *ngIf="!hasActiveHT"
+      class="create-new-ht"
+      (click)="onClickCreateNewTracker()"
+    >
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
       <span>
         Create a health tracker
       </span>
+    </div>
+
+    <div *ngIf="hasActiveHT" class="active-ht-block">
+      <div class="first-block">
+        <div>
+          {{ healthTrackerData?.tracker_name }}
+        </div>
+        <div>Days Completed: {{ healthTrackerData.days }}</div>
+      </div>
+      <div class="second-block">
+        <i class="fa fa-edit"></i>
+      </div>
     </div>
   </div>
 </div>

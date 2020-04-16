@@ -44,6 +44,19 @@ export class AppService {
         catchError(this.handleError<any>("createNewTracker"))
       );
   }
+
+  getUserHealthTracker(payload) {
+    return this.http
+      .post<any>(
+        URL_CONFIG.BASE_URL + URL_CONFIG.GET_HEALTH_TRACKER,
+        JSON.stringify(payload),
+        httpOptions
+      )
+      .pipe(
+        map(this.extractData),
+        catchError(this.handleError<any>("createNewTracker"))
+      );
+  }
   
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {

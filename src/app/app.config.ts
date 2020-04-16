@@ -8,7 +8,8 @@ export var URL_CONFIG = {
     LOGIN: "/login",
     SIGNUP: "/register",
     GET_QUESTIONS_BY_DAY: "/get-questions-by-day",
-    CREATE_NEW_TRACKER: "/create-new-tracker"
+    CREATE_NEW_TRACKER: "/create-new-tracker",
+    GET_HEALTH_TRACKER:"/get-health-tracker"
 };
 
 export function getConfigs() {
