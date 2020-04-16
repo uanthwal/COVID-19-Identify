@@ -1,7 +1,7 @@
-from db import *
 import mysql
 
 import db as db
+from db import *
 
 
 def login_user(mobile_number):
