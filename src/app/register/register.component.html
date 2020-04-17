@@ -43,6 +43,7 @@
             type="text"
             formControlName="mobile"
             class="form-control"
+            maxlength="10"
             [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
           />
           <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
