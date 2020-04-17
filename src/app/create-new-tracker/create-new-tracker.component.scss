@@ -32,6 +32,21 @@
             width: 399px;
         }
     }
+    .button-block {
+        width: 100%;
+        text-align: center;
+        button {
+            padding: 10px 25px;
+            background: #4caf50;
+            margin: 6%;
+            border-radius: 3px;
+            color: white;
+            font-size: 13px;
+            &:hover {
+              cursor: pointer;
+            }
+        }
+    }
 }
 @media screen and (min-width: 0px) and (max-width: 414px) {
     margin:2%;

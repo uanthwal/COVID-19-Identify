@@ -9,6 +9,8 @@ import { CreateNewTrackerComponent } from './create-new-tracker/create-new-track
 import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
+import { FormsModule } from '@angular/forms';
+import { UpdateTrackerComponent } from './update-tracker/update-tracker.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,14 @@ import { RegisterComponent } from './register/register.component';
     HomeComponent,
     LoginComponent,
     CreateNewTrackerComponent,
-    RegisterComponent
+    RegisterComponent,
+    UpdateTrackerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]

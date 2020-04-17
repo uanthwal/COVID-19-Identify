@@ -1,1 +1,16 @@
-<p>login works!</p>
+<div id="FullPage">
+  <div class="container">
+    <header>Login To Track Your Health</header>
+      <div class="input">
+        <label>Mobile Number</label>
+        <input [(ngModel)]="mobileNumber" type="number" value="0" />
+      </div>
+      <div class="input">
+        <label>Password</label>
+        <input [(ngModel)]="password" type="password" />
+      </div>
+      <div class="input">
+        <input type="submit" (click)="loginUser()" value="Login" />
+      </div>
+  </div>
+</div>

@@ -4,6 +4,15 @@
     background: #8080806b;
     width: 100%;
   }
+  .green {
+    color: green;
+  }
+  .gray {
+    color: gray;
+  }
+  .red {
+    color: red;
+  }
   @media screen and (min-width: 414px) and (max-width: 1445px) {
     display: flex;
     .profile-section {
@@ -97,10 +106,31 @@
         }
         &:hover {
           cursor: pointer;
-          background-color: #4CAF50;
+          background-color: #4caf50;
           color: white;
-          border: 1px solid #4CAF50;
+          border: 1px solid #4caf50;
         }
+      }
+    }
+    .active-ht-block {
+      padding: 10px;
+      border: 1px solid gray;
+      margin: 0.2%;
+      font-size: 19px;
+      display: flex;
+      align-items: center;
+      .first-block {
+        flex: 1;
+        .lbl {
+          font-size: 15px;
+        }
+        .lbl-val {
+          font-size: 15px;
+          font-weight: 600;
+        }
+      }
+      .second-block {
+        margin-right: 40px;
       }
     }
   }
@@ -161,6 +191,20 @@
         }
         &:hover {
           cursor: pointer;
+        }
+      }
+      .active-ht-block {
+        padding: 10px;
+        border: 1px solid gray;
+        margin: 1% 0.2%;
+        font-size: 19px;
+        display: flex;
+        align-items: center;
+        .first-block {
+          flex: 1;
+        }
+        .second-block {
+          margin-right: 10px;
         }
       }
     }
