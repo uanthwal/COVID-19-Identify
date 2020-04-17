@@ -22,6 +22,9 @@ h1, h2, h3, h4, h5, h6, h7
 #map{
 	text-align: center;
 }
+#cover{
+	max-width: 80%;
+}
 #register-box{
 	text-align: center;
 	padding: 10px;
@@ -70,7 +73,7 @@ input[type="checkbox"]{
 }
 /*Break point 768px: when the width of browser comes down to 768px, all elements are supposed to respond to changes and adapt
 responsive designs (break to new line, etc.)*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 760px) {
 	[class*=col-] {
 		width: 100%;
 	}
