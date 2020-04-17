@@ -1,3 +1,51 @@
+* {
+    font-family: "Pracmatica Light", "Helvetica Neue Light", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+h1, h2, h3, h4, h5, h6, h7
+{
+	font-weight: normal;
+}
+.form-group{
+	margin: 10px 0px;
+}
+.form-control{
+	width: 350px;
+	height: 25px;
+	padding: 10px;
+	font-size: 1em;
+}
+#register-heading{
+	padding: 10px;
+	font-size: 1.5em;
+}
+#map{
+	text-align: center;
+}
+#cover{
+	max-width: 80%;
+}
+#register-box{
+	text-align: center;
+	padding: 10px;
+}
+#register-text-area{
+	width: 200px;
+	height: 150px;
+}
+input[type="checkbox"]{
+	width: 30px; 
+	height: 30px; 
+	border: thin;
+	background-color: white;
+}
+#register-button{
+	font-size: 1em;
+	padding: 15px 60px;
+	border-radius: 25px;
+	color: white;
+	background-color: #0366fc;
+}
 /*******Responsive layout *******/
 /*12-column grid layout*/
 .col-1 { width: 8.33%; }
@@ -25,7 +73,7 @@
 }
 /*Break point 768px: when the width of browser comes down to 768px, all elements are supposed to respond to changes and adapt
 responsive designs (break to new line, etc.)*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 760px) {
 	[class*=col-] {
 		width: 100%;
 	}

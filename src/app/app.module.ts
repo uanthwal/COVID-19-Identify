@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CreateNewTrackerComponent } from './create-new-tracker/create-new-tracker.component';
 import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    CreateNewTrackerComponent
+    CreateNewTrackerComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
