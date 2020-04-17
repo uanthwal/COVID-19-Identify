@@ -71,6 +71,19 @@ export class AppService {
       );
   }
 
+  registerUser(payload) {
+    return this.http
+      .post<any>(
+        URL_CONFIG.BASE_URL + URL_CONFIG.SIGNUP,
+        JSON.stringify(payload),
+        httpOptions
+      )
+      .pipe(
+        map(this.extractData),
+        catchError(this.handleError<any>("createNewTracker"))
+      );
+  }
+  
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure

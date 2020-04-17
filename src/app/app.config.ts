@@ -6,7 +6,7 @@ export var APP_CONFIG = {
 export var URL_CONFIG = {
     BASE_URL: getConfigs()["BASE_URL"],
     LOGIN: "/login",
-    SIGNUP: "/register",
+    SIGNUP: "/signup",
     GET_QUESTIONS_BY_DAY: "/get-questions-by-day",
     CREATE_NEW_TRACKER: "/create-new-tracker",
     GET_HEALTH_TRACKER:"/get-health-tracker",

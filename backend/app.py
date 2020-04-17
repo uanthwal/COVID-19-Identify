@@ -32,11 +32,11 @@ def signup():
     data = request.json
     print("Signup request data: ", data)
     name = data['name']
-    date_of_birth = data['date_of_birth']
-    address = data['address']
+    date_of_birth = 'NA'
+    address = 'NA'
     postal_code = data['postal_code']
     mobile_number = data['mobile_number']
-    gender = data['gender']
+    gender = 'NA'
     email = data['email']
     password = data['password']
     if q.login_user(mobile_number) == 0:

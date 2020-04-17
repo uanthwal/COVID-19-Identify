@@ -9,7 +9,7 @@ import { CreateNewTrackerComponent } from './create-new-tracker/create-new-track
 import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]
