@@ -98,6 +98,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./src/app/app.auth.guard.ts");
 
     var routes = [{
+      path: '',
+      redirectTo: '/register',
+      pathMatch: 'full'
+    }, {
       path: 'home',
       component: _home_home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"],
       canActivate: [_app_auth_guard__WEBPACK_IMPORTED_MODULE_6__["AuthGuard"]]
