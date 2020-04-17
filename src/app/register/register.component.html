@@ -1,0 +1,113 @@
+<div>
+  <div id="map" class="col-8">
+    <h1 style="font-size: 3em;">COVID-19 Map (Worldwide)</h1>
+    <img id="cover" src="../../assets/covid.png" alt="Covid-map" />
+    <h1 style="font-size: 3em;">Stay Home. Fight Together.</h1>
+  </div>
+  <div id="register-box" class="col-3">
+    <h2 id="register-heading">
+      COVID-19 Symptoms? We will help you and you help us save others.
+    </h2>
+    <p style="font-size: 1.25em;">Register Yourself</p>
+    <div class="reg-form">
+      <form [formGroup]="registerForm">
+        <div class="form-group">
+          <input
+            placeholder="Full Name*"
+            type="text"
+            formControlName="username"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          />
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Full Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            placeholder="Email*"
+            type="text"
+            formControlName="email"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+          />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            placeholder="Mobile Number*"
+            type="text"
+            formControlName="mobile"
+            class="form-control"
+            maxlength="10"
+            [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+          />
+          <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+            <div *ngIf="f.mobile.errors.required">
+              Mobile Number is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            placeholder="Password*"
+            type="password"
+            formControlName="password"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">
+              Password must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            placeholder="Postal Code*"
+            type="text"
+            formControlName="postalcode"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.postalcode.errors }"
+          />
+          <div
+            *ngIf="submitted && f.postalcode.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.postalcode.errors.required">
+              Postal Code is required
+            </div>
+            <div *ngIf="f.postalcode.errors.minlength">
+              Postal Code must be at least 6 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            #agreementCheckboxx
+            type="checkbox"
+            [checked]="agreementCheckbox"
+            (change)="onClickAgreementCheckbox(agreementCheckboxx.checked)"
+          />
+          <label for="text">
+            I have read and accepted the
+            <a href="">Terms & Conditions</a></label
+          >
+        </div>
+        <div class="form-group">
+          <button (click)="onClickRegisterBtn()" class="register-btn">
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+    <h4>Already registered? <span class="signin-text" (click)="onClickSignIn()">Signin</span></h4>
+  </div>
+</div>

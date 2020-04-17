@@ -1,85 +1,115 @@
+.res-submitted-block {
+  @media screen and (min-width: 414px) and (max-width: 1445px) {
+    margin: 0 auto;
+    padding: 5%;
+    border: 1px solid gray;
+    width: 80%;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 15%;
+    i {
+      margin-bottom: 20px;
+      color: seagreen;
+      font-size: 150px;
+    }
+  }
+  @media screen and (min-width: 0px) and (max-width: 414px) {
+    margin: 0 auto;
+    padding: 5%;
+    border: 1px solid gray;
+    width: 80%;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 30%;
+    i {
+      margin-bottom: 20px;
+      color: seagreen;
+      font-size: 100px;
+    }
+  }
+}
 .q-container {
-    @media screen and (min-width: 414px) and (max-width: 1445px) {
+  @media screen and (min-width: 414px) and (max-width: 1445px) {
     margin: 5% 16%;
     padding: 2% 4%;
     background: #0000000f;
 
     .h-text {
-        font-size: 20px;
+      font-size: 20px;
     }
     .h-text-2 {
-        font-size: 18px;
-        margin-top: 30px;
-        margin-bottom: -20px;
+      font-size: 18px;
+      margin-top: 30px;
+      margin-bottom: -20px;
     }
     .question {
-        .q-text {
-            margin-top: 30px;
-            margin-bottom: 10px;
+      .q-text {
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+      .options {
+        display: flex;
+        text-align: center;
+        .option {
+          margin-right: 15px;
         }
-        .options {
-            display: flex;
-            text-align: center;
-            .option {
-                margin-right: 15px;
-            }
-        }
+      }
     }
     .add-comments {
-        margin-top: 30px;
-        textarea {
-            height: 100px;
-            width: 399px;
-        }
+      margin-top: 30px;
+      textarea {
+        height: 100px;
+        width: 399px;
+      }
     }
     .button-block {
-        width: 100%;
-        text-align: center;
-        button {
-            padding: 10px 25px;
-            background: #4caf50;
-            margin: 6%;
-            border-radius: 3px;
-            color: white;
-            font-size: 13px;
-            &:hover {
-              cursor: pointer;
-            }
+      width: 100%;
+      text-align: center;
+      button {
+        padding: 10px 25px;
+        background: #4caf50;
+        margin: 6%;
+        border-radius: 3px;
+        color: white;
+        font-size: 13px;
+        &:hover {
+          cursor: pointer;
         }
+      }
     }
-}
-@media screen and (min-width: 0px) and (max-width: 414px) {
-    margin:2%;
+  }
+  @media screen and (min-width: 0px) and (max-width: 414px) {
+    margin: 2%;
     padding: 3%;
     background: #0000000f;
 
     .h-text {
-        font-size: 20px;
+      font-size: 20px;
     }
     .h-text-2 {
-        font-size: 18px;
-        margin-top: 30px;
-        margin-bottom: -20px;
+      font-size: 18px;
+      margin-top: 30px;
+      margin-bottom: -20px;
     }
     .question {
-        .q-text {
-            margin-top: 30px;
-            margin-bottom: 10px;
+      .q-text {
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+      .options {
+        display: flex;
+        text-align: center;
+        .option {
+          margin-right: 15px;
         }
-        .options {
-            display: flex;
-            text-align: center;
-            .option {
-                margin-right: 15px;
-            }
-        }
+      }
     }
     .add-comments {
-        margin-top: 30px;
-        textarea {
-            height: 100px;
-            width: 359px;
-        }
+      margin-top: 30px;
+      textarea {
+        height: 100px;
+        width: 359px;
+      }
     }
-}
+  }
 }

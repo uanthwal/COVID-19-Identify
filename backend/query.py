@@ -17,12 +17,31 @@ def login_user(mobile_number):
 def login_authenticate(mobile_number, password):
   connection = db.open_connection()
   cursor = connection.cursor()
-  sql_select_query = "SELECT * FROM USER_INFO WHERE MOBILE_NUMBER = '{0}' AND PASSWORD = '{1}'".format(
+  sql_select_query = "SELECT USER_ID FROM USER_INFO WHERE MOBILE_NUMBER = '{0}' AND PASSWORD = '{1}'".format(
     mobile_number, password)
   cursor.execute(sql_select_query)
   result_set = cursor.fetchall()
   db.close_connection()
-  return len(result_set)
+  if len(result_set) == 1:
+    return result_set[0][0]
+
+  return -1
+
+
+def insert_user_session(session_id, user_id):
+  try:
+    connection = db.open_connection()
+    cursor = connection.cursor()
+    sql_insert_query = """INSERT INTO USER_SESSION (SESSION_ID, USER_ID) VALUES (%s, %s) """
+    record_tuple = (session_id, user_id)
+    cursor.execute(sql_insert_query, record_tuple)
+    connection.commit()
+    db.close_connection()
+    return True
+  except mysql.connector.Error as error:
+    print("Failed in signup_insert {}".format(error))
+    db.close_connection()
+    return False
 
 
 def signup_insert(name, date_of_birth, address, postal_code, mobile_number, gender, email, password):
@@ -39,6 +58,20 @@ def signup_insert(name, date_of_birth, address, postal_code, mobile_number, gend
   except mysql.connector.Error as error:
     print("Failed in signup_insert {}".format(error))
     db.close_connection()
+    return False
+
+
+def are_questions_answered_for_day(day, user_id):
+  connection = db.open_connection()
+  cursor = connection.cursor()
+  sql_select_query = "SELECT * FROM ANSWER_HISTORY WHERE DAY = '{0}' AND TRACKER_ID = (SELECT TRACKER_ID FROM " \
+                     "HEALTH_TRACKER WHERE USER_ID = '{1}')".format(day, user_id)
+  cursor.execute(sql_select_query)
+  result_set = cursor.fetchall()
+  db.close_connection()
+  if len(result_set) > 0:
+    return True
+  else:
     return False
 
 
@@ -121,15 +154,81 @@ def add_answer_for_day(values):
 def get_health_tracker_data(user_id):
   connection = db.open_connection()
   cursor = connection.cursor()
-  sql_select_query = "SELECT ah.DAY, ui.NAME FROM ANSWER_HISTORY ah, HEALTH_TRACKER ht, USER_INFO ui " \
-                     "WHERE ht.USER_ID = ui.USER_ID AND ui.USER_ID = '1' AND ah.TRACKER_ID = ht.TRACKER_ID GROUP BY " \
-                     "ah.DAY".format(user_id)
+  sql_select_query = "SELECT ah.DAY, ui.NAME, ht.CREATED_DATE, ht.TRACKER_ID, datediff(CURDATE(), " \
+                     "DATE(ht.CREATED_DATE)) AS TRACKER_DAYS FROM ANSWER_HISTORY ah, HEALTH_TRACKER ht, " \
+                     "USER_INFO ui WHERE ht.USER_ID = ui.USER_ID AND ui.USER_ID = '{0}' AND ah.TRACKER_ID = " \
+                     "ht.TRACKER_ID GROUP BY ah.DAY, ht.CREATED_DATE, ht.TRACKER_ID".format(user_id)
   cursor.execute(sql_select_query)
   result_set = cursor.fetchall()
   days = []
   name = ""
+  tracker_id = ""
+  created_dt = ""
+  tracker_days = ""
   for row in result_set:
     days.append(row[0])
     name = "Health tracker for " + str(row[1])
+    created_dt = str(row[2])
+    tracker_id = str(row[3])
+    tracker_days = str(row[4])
 
-  return {'tracker_name': name, 'days': days}
+  return {'tracker_name': name, 'days': days, 'tracker_id': tracker_id, 'created_dt': created_dt, 'tracker_days':
+    tracker_days}
+
+
+def check_user_session(session_id, user_id):
+  connection = db.open_connection()
+  cursor = connection.cursor()
+  sql_select_query = "SELECT * FROM USER_SESSION WHERE USER_ID = '{0}' AND SESSION_ID = '{1}'".format(
+    user_id, session_id)
+  cursor.execute(sql_select_query)
+  result_set = cursor.fetchall()
+  db.close_connection()
+  if len(result_set) == 1:
+    return True
+  else:
+    return False
+
+
+def get_user_info(user_id):
+  connection = db.open_connection()
+  cursor = connection.cursor()
+  sql_select_query = "SELECT NAME, DATE_OF_BIRTH, GENDER, POSTAL_CODE, MOBILE_NUMBER, EMAIL, ADDRESS FROM USER_INFO " \
+                     "WHERE USER_ID = '{0}'".format(user_id)
+  cursor.execute(sql_select_query)
+  result_set = cursor.fetchall()
+  db.close_connection()
+  data = []
+  for row in result_set:
+    data = row
+
+  return {"name": data[0], "date_of_birth": row[1], "gender": row[2], "postal_code": row[3], "mobile_number": row[4],
+          "email": row[5], "address": row[6]}
+
+
+def logout_user(user_id):
+  try:
+    connection = db.open_connection()
+    cursor = connection.cursor()
+    sql_query = "DELETE FROM USER_SESSION WHERE USER_ID = '{0}'".format(user_id)
+    cursor.execute(sql_query)
+    connection.commit()
+    return True
+  except mysql.connector.Error as error:
+    print("Failed in logout_user {}".format(error))
+    return False
+
+
+def check_active_session(user_id):
+  try:
+    connection = db.open_connection()
+    cursor = connection.cursor()
+    sql_query = "SELECT * FROM USER_SESSION WHERE USER_ID = '{0}'".format(user_id)
+    cursor.execute(sql_query)
+    result_set = cursor.fetchall()
+    if len(result_set) > 0:
+      return True
+    return False
+  except mysql.connector.Error as error:
+    print("Failed in logout_user {}".format(error))
+    return False

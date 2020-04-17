@@ -1,34 +1,58 @@
-<div class="q-container">
-    <div class="h-text">
-        Day 1: Health Tracker for: James Smith
+<div class="res-submitted-block" *ngIf="responseSubmitted">
+  <div>
+    <i class="fa fa-check-circle"></i>
+  </div>
+  <div>
+    Your response has already been recorded for Day {{ day }}. We will send a
+    reminder to your registered <b>Mobile Number</b> to update your health
+    status.
+  </div>
+</div>
+<div *ngIf="!responseSubmitted" class="q-container">
+  <div class="h-text">Day {{ day }}: Health Tracker for: James Smith</div>
+  <div class="h-text-2">
+    Please answer the following questions:
+  </div>
+  <div class="question" *ngFor="let q of questionsList; let qIndex = index">
+    <div class="q-text" *ngIf="q.q_type != 'O'">
+      {{ q.question }}
     </div>
-    <div class="h-text-2">
-        Please answer the following questions:
+    <div class="options" *ngIf="q.q_type == 'S'">
+      <div
+        class="option"
+        *ngFor="let o of q.options; let oIndex = index"
+        (click)="onClickRadioItem(oIndex, qIndex)"
+      >
+        <i
+          class="fa"
+          [ngClass]="o.selected ? 'fa-check-circle' : 'fa-circle'"
+          aria-hidden="true"
+        ></i>
+        {{ o.name }}
+      </div>
     </div>
-    <div class="question" *ngFor="let q of questionsList; let qIndex = index">
-        <div class="q-text" *ngIf="q.q_type != 'O'">
-            {{q.question}}
-        </div>
-        <div class="options" *ngIf="q.q_type == 'S'">
-            <div class="option" *ngFor="let o of q.options; let oIndex = index" (click)="onClickRadioItem(oIndex,qIndex)">
-                <i class="fa" [ngClass]="o.selected ? 'fa-check-circle':'fa-circle'" aria-hidden="true"></i>
-                {{o.name}}
-            </div>
-        </div>
-        <div class="options" *ngIf="q.q_type == 'M'">
-            <div class="option" *ngFor="let o of q.options; let oIndex = index" (click)="onClickCheckboxItem(oIndex,qIndex)">
-                <i class="fa" [ngClass]="o.selected ? 'fa-check-square':'fa-square'" aria-hidden="true"></i>
-                {{o.name}}
-            </div>
-        </div>
+    <div class="options" *ngIf="q.q_type == 'M'">
+      <div
+        class="option"
+        *ngFor="let o of q.options; let oIndex = index"
+        (click)="onClickCheckboxItem(oIndex, qIndex)"
+      >
+        <i
+          class="fa"
+          [ngClass]="o.selected ? 'fa-check-square' : 'fa-square'"
+          aria-hidden="true"
+        ></i>
+        {{ o.name }}
+      </div>
     </div>
-    <div class="add-comments">
-        Additional Comments:
-        <div>
-            <textarea [(ngModel)]="additionalComments" ></textarea>
-        </div>
+  </div>
+  <div class="add-comments">
+    Additional Comments:
+    <div>
+      <textarea [(ngModel)]="additionalComments"></textarea>
     </div>
-    <div class="button-block">
-        <button (click)="onClickSubmit()">SUBMIT</button>
-    </div>
+  </div>
+  <div class="button-block">
+    <button (click)="onClickSubmit()">SUBMIT</button>
+  </div>
 </div>
