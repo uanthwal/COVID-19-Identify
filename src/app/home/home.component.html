@@ -6,10 +6,10 @@
       </div>
       <div class="data-block">
         <div>
-          Name: Richard J Thomas
+          {{userInfo?.name}}
         </div>
         <div>
-          Mobile: +1 902 403 1234
+          {{userInfo?.mobile_number}}
         </div>
       </div>
     </div>
@@ -18,18 +18,18 @@
       <div class="icon-block">
         <i class="fa fa-map-marker" aria-hidden="true"></i>
       </div>
-      <span> 1333 South Park Street</span>
+      <span> {{userInfo?.postal_code}}</span>
     </div>
     <div class="separator"></div>
     <div class="p-block-3">
       <div class="icon-block">
         <i class="fa fa-id-card" aria-hidden="true"></i>
       </div>
-      <span> Age: 25Y Gender: M</span>
+      <span> Age: {{userInfo?.date_of_birth}} Gender: {{userInfo?.gender}}</span>
     </div>
     <div class="separator"></div>
     <div class="logout-btn-section">
-      <button>LOGOUT</button>
+      <button (click)="onClickLogoutBtn()">LOGOUT</button>
     </div>
   </div>
   <div class="tracker-section">

@@ -31,7 +31,7 @@ export class CreateNewTrackerComponent implements OnInit {
   ngOnInit(): void {
     this.responseSubmitted = false;
     this._appService
-      .getQuestionByDay({ day: this.day, userId: '1' })
+      .getQuestionByDay({ day: this.day, userId: this._appService.getUserId() })
       .subscribe((data: {}) => {
         if (null != data && data['code'] == 200) {
           this.questionsList = data['data'];
@@ -78,7 +78,7 @@ export class CreateNewTrackerComponent implements OnInit {
       questionAndAnswersInfo.push(tempQAObj);
     });
     let payload = {
-      userId: '1',
+      userId: this._appService.getUserId(),
       questionAndAnswersInfo: questionAndAnswersInfo,
     };
 

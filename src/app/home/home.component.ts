@@ -14,20 +14,26 @@ export class HomeComponent implements OnInit {
   daysCompleted = [];
   daysMissed = [];
   trackerId;
+  userInfo;
   constructor(private _router: Router, private _appService: AppService) {}
 
   ngOnInit(): void {
-    this._appService
-      .getUserHealthTracker({ userId: '1' })
-      .subscribe((data: {}) => {
-        if (data['code'] == 200) {
-          this.hasActiveHT = true;
-          this.healthTrackerData = data['data'];
-          this.healthTrackerCount = 1;
-          this.trackerId = this.healthTrackerData['tracker_id'];
-          this.initializeTrackerDays();
-        }
-      });
+    this._appService.getUserInfo({}).subscribe((data: {}) => {
+      if (data['code'] == 200) {
+        this.userInfo = data['data'];
+      }
+      this._appService
+        .getUserHealthTracker({ userId: this._appService.getUserId() })
+        .subscribe((data: {}) => {
+          if (data['code'] == 200) {
+            this.hasActiveHT = true;
+            this.healthTrackerData = data['data'];
+            this.healthTrackerCount = 1;
+            this.trackerId = this.healthTrackerData['tracker_id'];
+            this.initializeTrackerDays();
+          }
+        });
+    });
   }
 
   onClickCreateNewTracker() {
@@ -63,5 +69,14 @@ export class HomeComponent implements OnInit {
       if (this.daysMissed.indexOf('' + day) != -1) return 'red';
       return 'gray';
     } else return 'green';
+  }
+
+  onClickLogoutBtn() {
+    this._appService.logout({}).subscribe((data: {}) => {
+      if (data['code'] == 200) {
+        localStorage.clear();
+        this._router.navigate(['/login']);
+      }
+    });
   }
 }

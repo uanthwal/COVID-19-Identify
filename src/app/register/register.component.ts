@@ -10,8 +10,6 @@ import { AppService } from '../app.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   agreementCheckbox: boolean;
-  destination;
-  invalidFields = [];
   submitted;
   constructor(
     private formBuilder: FormBuilder,
@@ -20,6 +18,7 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    localStorage.clear();
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       email: [

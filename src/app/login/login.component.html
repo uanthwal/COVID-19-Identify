@@ -1,16 +1,50 @@
-<div id="FullPage">
-  <div class="container">
-    <header>Login To Track Your Health</header>
-      <div class="input">
-        <label>Mobile Number</label>
-        <input [(ngModel)]="mobileNumber" type="number" value="0" />
-      </div>
-      <div class="input">
-        <label>Password</label>
-        <input [(ngModel)]="password" type="password" />
-      </div>
-      <div class="input">
-        <input type="submit" (click)="loginUser()" value="Login" />
-      </div>
+<div>
+  <div class="register-box">
+    <h2 id="register-heading">
+      Welcome to Identify
+    </h2>
+    <p style="font-size: 1.25em;">Login</p>
+    <div class="reg-form">
+      <form [formGroup]="registerForm">
+        <div class="form-group">
+          <input
+            placeholder="Mobile Number*"
+            type="text"
+            formControlName="mobile"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+          />
+          <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+            <div *ngIf="f.mobile.errors.required">
+              Mobile Number is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            placeholder="Password*"
+            type="password"
+            formControlName="password"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">
+              Password must be at least 6 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button (click)="onClickLoginBtn()" class="register-btn">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+    <h4>
+      Not registered with us?
+      <span class="signin-text" (click)="onClickSignup()">Signup now</span>
+    </h4>
   </div>
 </div>
