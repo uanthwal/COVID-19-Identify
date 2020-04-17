@@ -22,7 +22,7 @@ export function getConfigs() {
   } else {
     return {
       BASE_URL:
-        'http://travel-canada-elb-1597027388.us-east-1.elb.amazonaws.com',
+        'http://3.86.171.251:5000',
     };
   }
 }
