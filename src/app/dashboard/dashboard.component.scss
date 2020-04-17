@@ -1,0 +1,193 @@
+.dashboard-page-container {
+  .separator {
+    height: 1px;
+    background: #8080806b;
+    width: 100%;
+  }
+  @media screen and (min-width: 414px) and (max-width: 1445px) {
+    display: flex;
+    .profile-section {
+      font-size: 20px;
+      position: relative;
+      width: 20%;
+      height: 100vh;
+      background: #80808026;
+      .p-block-1 {
+        background-color: #1fc8db;
+        background-image: linear-gradient(
+          141deg,
+          #9fb8ad 0%,
+          #1fc8db 51%,
+          #2cb5e8 75%
+        );
+        display: flex;
+        align-items: center;
+        height: 150px;
+        padding: 5px;
+        .icon-block {
+          width: 20%;
+          text-align: center;
+          font-size: 50px;
+        }
+      }
+      .p-block-2 {
+        display: flex;
+        height: 60px;
+        align-items: center;
+        padding: 5px;
+        .icon-block {
+          width: 20%;
+          text-align: center;
+        }
+        &:hover {
+          background: #FF8C00;
+        }
+      }
+      .p-block-3 {
+        display: flex;
+        height: 60px;
+        align-items: center;
+        padding: 5px;
+        .icon-block {
+          width: 20%;
+          text-align: center;
+        }
+        &:hover {
+          background: #d1070791;
+        }
+      }
+      .p-block-4 {
+        display: flex;
+        height: 60px;
+        align-items: center;
+        padding: 5px;
+        .icon-block {
+          width: 20%;
+          text-align: center;
+        }
+        &:hover {
+          background: #086b29fa;
+        }
+      }
+      .logout-btn-section {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        button {
+          padding: 10px 25px;
+          background: #4caf50;
+          margin: 6%;
+          border-radius: 3px;
+          color: white;
+          font-size: 13px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .tracker-section {
+      width: 80%;
+      .tracker-header {
+        padding: 10px;
+        border: 1px solid gray;
+        margin: 0.2%;
+        background: #3838383b;
+        font-size: 24px;
+      }
+      .filter{
+        padding: 0px;
+        font-size: 30px;
+      }
+    }
+      
+    .active-ht-block {
+      padding: 10px;
+      border: 1px solid gray;
+      margin: 0.2%;
+      font-size: 19px;
+      display: flex;
+      align-items: center;
+      .first-block {
+        flex: 1;
+      }
+      .second-block {
+        margin-right: 40px;
+      }
+    }
+    .input[type="radio" i] {
+      margin: 3px 3px 5px 5px;
+    }
+  }
+  @media screen and (min-width: 0px) and (max-width: 414px) {
+    display: block;
+    .profile-section {
+      font-size: 16px;
+      width: 96%;
+      margin: 2%;
+      height: auto;
+      .p-block-1 {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding: 5px;
+        .icon-block {
+          width: 20%;
+          text-align: center;
+          font-size: 30px;
+        }
+      }
+      .p-block-2 {
+        display: flex;
+        height: 25px;
+        align-items: center;
+        padding: 5px;
+      }
+      .p-block-3 {
+        display: flex;
+        height: 25px;
+        align-items: center;
+        padding: 5px;
+      }
+
+      .p-block-4 {
+        display: flex;
+        height: 25px;
+        align-items: center;
+        padding: 5px;
+      }
+      .logout-btn-section {
+        display: none;
+      }
+    }
+    .tracker-section {
+      width: 96%;
+      margin: 2%;
+      .tracker-header {
+        padding: 10px;
+        border: 1px solid gray;
+        margin: 0.2%;
+        background: #8080803b;
+        font-size: 18px;
+      }
+      .active-ht-block {
+        padding: 10px;
+        border: 1px solid gray;
+        margin: 1% 0.2%;
+        font-size: 19px;
+        display: flex;
+        align-items: center;
+        .first-block {
+          flex: 1;
+        }
+        .second-block {
+          margin-right: 10px;
+        }
+      }
+    }
+    .input[type="radio"] {
+      padding: 30px;
+    }
+  }
+}

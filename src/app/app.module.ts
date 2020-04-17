@@ -9,13 +9,15 @@ import { CreateNewTrackerComponent } from './create-new-tracker/create-new-track
 import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    CreateNewTrackerComponent
+    CreateNewTrackerComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
