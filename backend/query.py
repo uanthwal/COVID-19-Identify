@@ -42,6 +42,20 @@ def signup_insert(name, date_of_birth, address, postal_code, mobile_number, gend
     return False
 
 
+def are_questions_answered_for_day(day, user_id):
+  connection = db.open_connection()
+  cursor = connection.cursor()
+  sql_select_query = "SELECT * FROM ANSWER_HISTORY WHERE DAY = '{0}' AND TRACKER_ID = (SELECT TRACKER_ID FROM " \
+                     "HEALTH_TRACKER WHERE USER_ID = '{1}')".format(day, user_id)
+  cursor.execute(sql_select_query)
+  result_set = cursor.fetchall()
+  db.close_connection()
+  if len(result_set) > 0:
+    return True
+  else:
+    return False
+
+
 def get_questions_by_day(day):
   connection = db.open_connection()
   cursor = connection.cursor()

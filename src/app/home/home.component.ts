@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   healthTrackerCount = 0;
   daysCompleted = [];
   daysMissed = [];
+  trackerId;
   constructor(private _router: Router, private _appService: AppService) {}
 
   ngOnInit(): void {
@@ -23,17 +24,22 @@ export class HomeComponent implements OnInit {
           this.hasActiveHT = true;
           this.healthTrackerData = data['data'];
           this.healthTrackerCount = 1;
+          this.trackerId = this.healthTrackerData['tracker_id'];
           this.initializeTrackerDays();
         }
       });
   }
 
   onClickCreateNewTracker() {
-    this._router.navigate(['/create-new-tracker']);
+    this._router.navigate(['/create-new-tracker'], {
+      queryParams: { d: 1, n: 1 },
+    });
   }
 
-  onClickEditIcon() {
-    this._router.navigate(['/update-tracker']);
+  onClickDay(day) {
+    this._router.navigate(['/create-new-tracker'], {
+      queryParams: { d: day, n: 0 },
+    });
   }
 
   initializeTrackerDays() {

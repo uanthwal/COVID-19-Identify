@@ -58,6 +58,19 @@ export class AppService {
       );
   }
   
+  saveDataForDay(payload) {
+    return this.http
+      .post<any>(
+        URL_CONFIG.BASE_URL + URL_CONFIG.SAVE_DATA_FOR_DAY,
+        JSON.stringify(payload),
+        httpOptions
+      )
+      .pipe(
+        map(this.extractData),
+        catchError(this.handleError<any>("createNewTracker"))
+      );
+  }
+
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure

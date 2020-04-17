@@ -52,7 +52,11 @@ def signup():
 def get_questions_by_day():
   if request.method == 'POST':
     data = request.json
+    print("Get question by day request data: ", data)
     day = data['day']
+    user_id = data['userId']
+    if q.are_questions_answered_for_day(day, user_id):
+      return jsonify({"code": "209", "message": "Your response has already been recorded for Day " + str(day)})
     questions_list = q.get_questions_by_day(day)
     for q_object in questions_list:
       options = q_object['options']
@@ -115,6 +119,18 @@ def get_health_tracker():
       return jsonify({"code": "200", "data": ht_data})
 
     return jsonify({"code": "208", "message": "Internal Server Error"})
+
+
+@app.route('/save-data-for-day', methods=['POST'])
+def save_data_for_day():
+  if request.method == 'POST':
+    data = request.json
+    print("Save health tracker request data: ", data)
+    user_id = data['userId']
+    if add_tracker_data(user_id, data):
+      return jsonify({"code": "200", "message": "Your data has been recorded successfully!"})
+
+    return jsonify({"code": "210", "message": "Internal Server Error"})
 
 
 if __name__ == '__main__':

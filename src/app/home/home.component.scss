@@ -127,6 +127,10 @@
         .lbl-val {
           font-size: 15px;
           font-weight: 600;
+          padding-right: 8px;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
       .second-block {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-new-tracker',
@@ -10,17 +10,35 @@ import { Router } from '@angular/router';
 export class CreateNewTrackerComponent implements OnInit {
   questionsList = [];
   additionalComments;
-
-  constructor(private _appService: AppService, private _router: Router) {}
-
-  ngOnInit(): void {
-    this._appService.getQuestionByDay({ day: '1' }).subscribe((data: {}) => {
-      if (null != data && data['code'] == 200) {
-        this.questionsList = data['data'];
-      } else {
-        alert(data['message']);
+  day = 1;
+  newTracker;
+  responseSubmitted;
+  constructor(
+    private _appService: AppService,
+    private _router: Router,
+    private _route: ActivatedRoute
+  ) {
+    this._route.queryParams.subscribe((params) => {
+      this.day = params['d'];
+      this.newTracker = params['n'];
+      if (this.day == undefined || this.newTracker == undefined) {
+        this._router.navigate(['/home']);
+        return;
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.responseSubmitted = false;
+    this._appService
+      .getQuestionByDay({ day: this.day, userId: '1' })
+      .subscribe((data: {}) => {
+        if (null != data && data['code'] == 200) {
+          this.questionsList = data['data'];
+        } else {
+          this.responseSubmitted = true;
+        }
+      });
   }
 
   onClickCheckboxItem(oIndex, qIndex) {
@@ -63,13 +81,25 @@ export class CreateNewTrackerComponent implements OnInit {
       userId: '1',
       questionAndAnswersInfo: questionAndAnswersInfo,
     };
-    this._appService.createNewTracker(payload).subscribe((data: {}) => {
-      if (null != data && data['code'] == 200) {
-        alert(data['message']);
-        this._router.navigate(['/home']);
-      } else {
-        alert(data['message']);
-      }
-    });
+
+    if (this.newTracker == '0') {
+      this._appService.saveDataForDay(payload).subscribe((data: {}) => {
+        if (null != data && data['code'] == 200) {
+          alert(data['message']);
+          this._router.navigate(['/home']);
+        } else {
+          alert(data['message']);
+        }
+      });
+    } else {
+      this._appService.createNewTracker(payload).subscribe((data: {}) => {
+        if (null != data && data['code'] == 200) {
+          alert(data['message']);
+          this._router.navigate(['/home']);
+        } else {
+          alert(data['message']);
+        }
+      });
+    }
   }
 }

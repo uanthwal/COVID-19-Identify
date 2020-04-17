@@ -58,18 +58,16 @@
           <span class="lbl-val"> {{ healthTrackerData?.created_dt }} </span>
         </div>
         <div>
-          <label class="lbl"> Days Completed: </label>
+          <label class="lbl"> Days: </label>
           <span
             class="lbl-val"
             *ngFor="let day of '1 2 3 4 5 6 7 8 9 10 11 12 13 14'.split(' ')"
             [ngClass]="isDayInList(day)"
+            (click)="onClickDay(day)"
           >
             {{ day }}</span
           >
         </div>
-      </div>
-      <div class="second-block">
-        <i class="fa fa-edit" (click)="onClickEditIcon()"></i>
       </div>
     </div>
   </div>
