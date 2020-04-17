@@ -121,15 +121,24 @@ def add_answer_for_day(values):
 def get_health_tracker_data(user_id):
   connection = db.open_connection()
   cursor = connection.cursor()
-  sql_select_query = "SELECT ah.DAY, ui.NAME FROM ANSWER_HISTORY ah, HEALTH_TRACKER ht, USER_INFO ui " \
-                     "WHERE ht.USER_ID = ui.USER_ID AND ui.USER_ID = '1' AND ah.TRACKER_ID = ht.TRACKER_ID GROUP BY " \
-                     "ah.DAY".format(user_id)
+  sql_select_query = "SELECT ah.DAY, ui.NAME, ht.CREATED_DATE, ht.TRACKER_ID, datediff(CURDATE(), " \
+                     "DATE(ht.CREATED_DATE)) AS TRACKER_DAYS FROM ANSWER_HISTORY ah, HEALTH_TRACKER ht, " \
+                     "USER_INFO ui WHERE ht.USER_ID = ui.USER_ID AND ui.USER_ID = '1' AND ah.TRACKER_ID = " \
+                     "ht.TRACKER_ID GROUP BY ah.DAY, ht.CREATED_DATE, ht.TRACKER_ID".format(user_id)
   cursor.execute(sql_select_query)
   result_set = cursor.fetchall()
   days = []
   name = ""
+  tracker_id = ""
+  created_dt = ""
+  tracker_days = ""
   for row in result_set:
     days.append(row[0])
     name = "Health tracker for " + str(row[1])
+    created_dt = str(row[2])
+    tracker_id = str(row[3])
+    tracker_days = str(row[4])
 
-  return {'tracker_name': name, 'days': days}
+
+  return {'tracker_name': name, 'days': days, 'tracker_id':tracker_id, 'created_dt':created_dt, 'tracker_days':
+    tracker_days}
