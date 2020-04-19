@@ -183,6 +183,23 @@ def get_user_info():
     return jsonify({"code": "200", "data": data})
 
 
+#------------------Dashbord API--------------------------
+
+
+@app.route('/get-symptoms', methods=['POST'])
+def get_symptoms():
+    if request.method == 'POST':
+        data = q.fetch_symptoms()
+
+        return jsonify({"code": "200", "data": data})
+
+@app.route('/get-active-trackers', methods=['POST'])
+def get_active_trackers():
+    if request.method == 'POST':
+        data = q.fetch_active_trackers()
+
+        return jsonify({"code": "200", "data": data})
+
 @app.route('/logout', methods=['POST'])
 def logout():
   if not filter_request(request):

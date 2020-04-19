@@ -232,3 +232,39 @@ def check_active_session(user_id):
   except mysql.connector.Error as error:
     print("Failed in logout_user {}".format(error))
     return False
+
+def fetch_symptoms():
+    connection = db.open_connection()
+    cursor = connection.cursor()
+    sql_select_query = "SELECT OPTIONS FROM FIXED_QUESTIONS WHERE Q_TYPE = '{0}'".format("M")
+    cursor.execute(sql_select_query)
+    result_set = cursor.fetchall()
+    db.close_connection()
+    symptoms = set()
+
+    for each in result_set:
+        for s in each:
+            for e in s.split(","):
+                symptoms.add(e)
+
+    return [i for i in iter(symptoms)]
+
+def fetch_active_trackers():
+    connection = db.open_connection()
+    cursor = connection.cursor()
+    sql_select_query = "SELECT * FROM HEALTH_TRACKER left join USER_INFO ON HEALTH_TRACKER.USER_ID = USER_INFO.USER_ID"
+    cursor.execute(sql_select_query)
+    result_set = cursor.fetchall()
+    db.close_connection()
+    details = []
+
+    for row in result_set:
+        temp = {}
+        temp['date_time'] = row[2]
+        temp['name'] = row[5]
+        temp['postal_code'] = row[8]
+        temp['mobile_number'] = row[9]
+        temp['email'] = row[11]
+        details.append(temp)
+
+    return details 

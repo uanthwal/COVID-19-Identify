@@ -7,8 +7,9 @@ def open_connection():
   try:
     _connection = mysql.connector.connect(host='localhost',
                                           database='identify',
-                                          user='root')
-    print("MySQL connection is opened")
+                                          user='root',
+                                          password='vish591996')
+    # print("MySQL connection is opened")
     return _connection
   except Error as e:
     print("Error while connecting to MySQL", e)
@@ -17,4 +18,4 @@ def open_connection():
 def close_connection():
   if _connection.is_connected():
     _connection.close()
-    print("MySQL connection is closed")
+    # print("MySQL connection is closed")
