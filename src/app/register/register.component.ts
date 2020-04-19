@@ -3,6 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
 
+
+
+
 @Component({
   templateUrl: 'register.component.html',
   styleUrls: ['./register.component.scss'],
@@ -11,6 +14,23 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   agreementCheckbox: boolean;
   submitted;
+
+// Postal Code dropdown
+/**
+ showdropdown=false;
+postal=['B3J 2K9', 'B41 1H1', 'B3H 2Z3', 'B45 HJ6'];
+toggledropdown(){
+  this.showdropdown=!this.showdropdown;
+} 
+
+selectValue(value){
+  this.registerForm.patchValue({"postalcode":value});
+  this.toggledropdown();
+}
+
+getpostalcodeValue(){
+  return this.registerForm.value.postalcode;
+}*/
   constructor(
     private formBuilder: FormBuilder,
     private _router: Router,

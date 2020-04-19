@@ -74,9 +74,30 @@
             placeholder="Postal Code*"
             type="text"
             formControlName="postalcode"
-            class="form-control"
+            class="form-control" 
+            maxLength="6"
             [ngClass]="{ 'is-invalid': submitted && f.postalcode.errors }"
           />
+         <!-- 
+           <input
+            placeholder="Postal Code*"
+            (click)="toggledropdown()"
+            type="text"
+            formControlName="postalcode"
+            class="form-control" 
+            maxLength="6"
+            [ngClass]="{ 'is-invalid': submitted && f.postalcode.errors }"
+          />
+          <div *ngIf="showdropdown" class="postal-container-dropdown">
+            <div>
+             <div (click)="selectValue(p)" class="postal" *ngFor="let p of postal | postalcodefilter: getpostalcodeValue()">
+              {{p}}
+              </div>
+            </div>
+          </div>
+         -->
+         
+          
           <div
             *ngIf="submitted && f.postalcode.errors"
             class="invalid-feedback"

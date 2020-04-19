@@ -20,6 +20,7 @@ h7 {
 }
 .form-group {
   margin: 10px 0px;
+  position: relative;
 }
 .form-control {
   width: 350px;
@@ -27,6 +28,28 @@ h7 {
   padding: 10px;
   font-size: 1em;
 }
+//this is Moha edit for hover
+
+.postal-container-dropdown{
+  position: absolute;
+  z-index: 1;
+  width: 370px;
+  max-height: 70px;
+  background-color: white;
+  overflow-y: auto;
+  text-align: justify;
+  padding-left: 0px;
+}
+.postal{
+  padding:10px;
+  font-family: sans-serif;
+  color: navy; 
+}
+.postal:hover{
+  background: rgb(136, 103, 41);
+}
+
+
 #register-heading {
   padding: 10px;
   font-size: 1.5em;
