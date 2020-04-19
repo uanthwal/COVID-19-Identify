@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './app.auth.guard';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AuthGuard } from './app.auth.guard';
     LoginComponent,
     CreateNewTrackerComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

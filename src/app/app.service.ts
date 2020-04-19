@@ -150,6 +150,19 @@ export class AppService {
       );
   }
   
+  getAllData(payload) {
+    return this.http
+      .post<any>(
+        URL_CONFIG.BASE_URL + URL_CONFIG.GET_ALLL_DATA_DASHBOARD,
+        JSON.stringify(payload),
+        this.getTokenHeaders()
+      )
+      .pipe(
+        map(this.extractData),
+        catchError(this.handleError<any>('logout'))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
