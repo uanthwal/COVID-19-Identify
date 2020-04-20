@@ -17,14 +17,17 @@ def login_user(mobile_number):
 def login_authenticate(mobile_number, password):
   connection = db.open_connection()
   cursor = connection.cursor()
-  sql_select_query = "SELECT USER_ID FROM USER_INFO WHERE MOBILE_NUMBER = '{0}' AND PASSWORD = '{1}'".format(
+  sql_select_query = "SELECT USER_ID, USER_TYPE FROM USER_INFO WHERE MOBILE_NUMBER = '{0}' AND PASSWORD = '{1}'".format(
     mobile_number, password)
   cursor.execute(sql_select_query)
   result_set = cursor.fetchall()
   db.close_connection()
   if len(result_set) == 1:
-    return result_set[0][0]
-
+    data = {
+      'user_id': result_set[0][0],
+      'user_type': result_set[0][1]
+    }
+    return data
   return -1
 
 
@@ -267,4 +270,4 @@ def fetch_active_trackers():
         temp['email'] = row[11]
         details.append(temp)
 
-    return details 
+    return details

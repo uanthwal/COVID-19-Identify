@@ -1,0 +1,34 @@
+<div class="data-container">
+  
+  <!-- <div class="filter-section">
+    <div class="filters">
+      <span
+        class="filter-name"
+        (click)="onClickFilterName(filter)"
+        *ngFor="let filter of filterList"
+        [ngClass]="{active: filter.selected}"
+        >{{ filter.name }}</span
+      >
+    </div>
+    <div class="filter-options" *ngIf="isFilterSelected">
+      <span class="f-option" *ngFor="let option of filterOptions" (click)="onClickFilterOption(option)"> {{option.name}}</span>
+    </div>
+  </div> -->
+
+  <div class="data-section">
+    <div class="card" *ngFor="let record of dataList">
+      <div>
+        <span class="lbl">Name: </span>
+        <span class="val">{{ record.name }}</span>
+      </div>
+      <div>
+        <span class="lbl">Start Date: </span>
+        <span class="val">{{ record.date_time }}</span>
+      </div>
+      <div>
+        <span class="lbl">Mobile: </span>
+        <span class="val">{{ record.mobile_number }}</span>
+      </div>
+    </div>
+  </div>
+</div>

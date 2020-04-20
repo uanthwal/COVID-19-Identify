@@ -1,68 +1,24 @@
-<div class="dashboard-page-container">
-    <div class="profile-section">
-      <div class="p-block-1">
-        <div class="icon-block">
-          <i class="fa fa-user-circle" aria-hidden="true"></i>
-        </div>
-        <div class="data-block">
-          <div>
-            Name: Dr Richard J Thomas
-          </div>
-          <div>
-            Mobile: +1 902 403 1234
-          </div>
-        </div>
-      </div>
-      <div class="separator"></div>
-      <div class="p-block-2">
-        <div class="icon-block">
-          <i class="fa fa-circle usercase" aria-hidden="true"></i>
-        </div>
-        <span> Potential cases  <br> 100 Cases </span>
-      </div>
-      <div class="separator"></div>
-      <div class="p-block-3">
-        <div class="icon-block">
-          <i class="fa fa-circle" aria-hidden="true"></i>
-        </div>
-        <span> Positive Cases<br> 200 Cases </span>
-      </div>
-      <div class="separator"></div>
-      <div class="p-block-4">
-        <div class="icon-block">
-          <i class="fa fa-circle" aria-hidden="true"></i>
-        </div>
-        <span> Negative Cases <br> 10 cases </span>
-        
-      </div>
-      <div class="separator"></div>
-      <div class="logout-btn-section">
-        <button>LOGOUT</button>
-      </div>
+<div class="dashboard-container">
+  <div [ngClass]="{showprofile : displayProfile}"   class="profile-section" *ngIf="displayProfile">
+    profile data
+  </div>
+  <div class="nav-block">
+    <span class="profle-icon">
+      <i class="fa fa-user-circle-o"></i>
+    </span>
+   
+    <span class="nav-items" [ngClass]="{active: item.selected}" *ngFor="let item of navMenuItems" (click)="onClickOption(item)">{{item.name}}</span>
+    <button (click)="onClickLogout()" class="logout-btn">LOGOUT</button>
+  </div>
+  <div class="display-block">
+    <div class="summary-block">
+      <div class="card positive">Positive Cases: 20</div>
+      <div class="card negative">Negative Cases: 20</div>
     </div>
-    <div class="tracker-section">
-      <div class="tracker-header">
-          <p class="filter">Filter Your Selection </p>
-          <div class="input">
-        <input type="radio" id="age" name="radio" value="Age">
-        <label for="age">Age</label>
-        <input type="radio" id="symptoms" name="radio" value="Symptoms">
-        <label for="symptoms">Symptoms</label>
-        <input type="radio" id="days" name="radio" value="Days">
-        <label for="days">Days</label>
-        <input type="radio" id="postalcode" name="radio" value="postalcode">
-        <label for="postalcode">Postal Code</label>
-          </div>
-      </div>
-  
-      <div  class="active-ht-block">
-        <div class="first-block">
-          <div *ngFor="let record of dataList">
-            <p>{{record.name}}</p>
-          </div>
-          <div></div>
-        </div>
-      </div>
+    <div class="router-block">
+      <router-outlet></router-outlet>
+    </div>
     </div>
   </div>
-  
+ 
+

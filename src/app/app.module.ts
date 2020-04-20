@@ -13,6 +13,10 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './app.auth.guard';
 import { FilterPipe } from './filter.pipe';
+import { DashboardDataComponent } from './dashboard-data/dashboard-data.component';
+import { DashboardVisualizationsComponent } from './dashboard-visualizations/dashboard-visualizations.component';
+import { DashboardHeatmapComponent } from './dashboard-heatmap/dashboard-heatmap.component';
+import { LeafletModule } from "@asymmetrik/ngx-leaflet";
 
 @NgModule({
   declarations: [
@@ -22,14 +26,18 @@ import { FilterPipe } from './filter.pipe';
     CreateNewTrackerComponent,
     DashboardComponent,
     RegisterComponent,
-    FilterPipe
+    FilterPipe,
+    DashboardDataComponent,
+    DashboardVisualizationsComponent,
+    DashboardHeatmapComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LeafletModule.forRoot()
   ],
   providers: [AppService, AuthGuard],
   bootstrap: [AppComponent]

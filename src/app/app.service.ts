@@ -4,11 +4,9 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { URL_CONFIG } from './app.config';
 
-
-
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }),
 };
 
@@ -21,16 +19,16 @@ export class AppService {
     return body || {};
   }
 
-  setSessionId(session_Id) {
-    localStorage.setItem('s_id', JSON.stringify(session_Id));
+  setSessionId(sessionId) {
+    localStorage.setItem('s_id', JSON.stringify(sessionId));
   }
 
   getSessionId() {
     return JSON.parse(localStorage.getItem('s_id'));
   }
 
-  setUserId(session_Id) {
-    localStorage.setItem('u_id', JSON.stringify(session_Id));
+  setUserId(userId) {
+    localStorage.setItem('u_id', JSON.stringify(userId));
   }
 
   getUserId() {
@@ -50,10 +48,11 @@ export class AppService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         SESSION_TOKEN: JSON.parse(localStorage.getItem('s_id')),
-        USER_ID: JSON.parse(localStorage.getItem('u_id')),
+        USER_ID: '' + JSON.parse(localStorage.getItem('u_id')),
       }),
     };
   }
+  
   getQuestionByDay(payload) {
     return this.http
       .post<any>(
@@ -126,10 +125,7 @@ export class AppService {
         JSON.stringify(payload),
         httpOptions
       )
-      .pipe(
-        map(this.extractData),
-        catchError(this.handleError<any>('login'))
-      );
+      .pipe(map(this.extractData), catchError(this.handleError<any>('login')));
   }
 
   getUserInfo(payload) {
@@ -152,25 +148,34 @@ export class AppService {
         JSON.stringify(payload),
         this.getTokenHeaders()
       )
-      .pipe(
-        map(this.extractData),
-        catchError(this.handleError<any>('logout'))
-      );
+      .pipe(map(this.extractData), catchError(this.handleError<any>('logout')));
   }
-  
+
   getAllData(payload) {
     return this.http
       .post<any>(
         URL_CONFIG.BASE_URL + URL_CONFIG.GET_ALL_ACTIVE_TRACKERS,
         JSON.stringify(payload),
-        this.getTokenHeaders()
+        httpOptions
       )
       .pipe(
         map(this.extractData),
-        catchError(this.handleError<any>('logout'))
+        catchError(this.handleError<any>('getAllData'))
       );
   }
 
+  getSymptoms(payload) {
+    return this.http
+      .post<any>(
+        URL_CONFIG.BASE_URL + URL_CONFIG.GET_SYMPTOMS,
+        JSON.stringify(payload),
+        httpOptions
+      )
+      .pipe(
+        map(this.extractData),
+        catchError(this.handleError<any>('getSymptoms'))
+      );
+  }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure

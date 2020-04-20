@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     localStorage.clear();
     this.registerForm = this.formBuilder.group({
-      
       mobile: [
         '',
         [
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
           Validators.min(10),
         ],
       ],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -37,7 +36,6 @@ export class LoginComponent implements OnInit {
   get f() {
     return this.registerForm.controls;
   }
-
 
   onClickLoginBtn() {
     this.submitted = true;
@@ -47,20 +45,26 @@ export class LoginComponent implements OnInit {
     }
     let payload = {
       password: this.registerForm.controls['password'].value,
-      mobile_number: this.registerForm.controls['mobile'].value
+      mobile_number: this.registerForm.controls['mobile'].value,
     };
     this._appService.login(payload).subscribe((data: {}) => {
       if (data['code'] == 200) {
-        this._appService.setSessionId(data['session_id']);
-        this._appService.setUserId(data['user_id']);
-        this.onClickSignup();
+        this._appService.setSessionId(data['data']['session_id']);
+        this._appService.setUserId(data['data']['user_id']);
+        let userType = data['data']['user_type'];
+        this.redirectUser(userType);
       } else {
         alert(data['message']);
       }
     });
   }
 
+  redirectUser(userType) {
+    if (userType == 'C') this._router.navigate(['/home']);
+    else this._router.navigate(['/dashboard/data']);
+  }
+
   onClickSignup() {
-    this._router.navigate(['/home']);
+    this._router.navigate(['/register']);
   }
 }

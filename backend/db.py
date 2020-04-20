@@ -8,7 +8,7 @@ def open_connection():
     _connection = mysql.connector.connect(host='localhost',
                                           database='identify',
                                           user='root',
-                                          password='vish591996')
+                                          password='root@123')
     # print("MySQL connection is opened")
     return _connection
   except Error as e:

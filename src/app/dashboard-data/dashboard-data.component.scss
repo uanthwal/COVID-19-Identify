@@ -1,0 +1,44 @@
+.data-container {
+  .filter-section {
+    .filters {
+      .filter-name {
+        border: 1px solid black;
+        padding: 5px;
+        margin: 5px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .active {
+        border: 1px solid green;
+      }
+    }
+    .filter-options {
+      .f-option {
+        border: 1px solid black;
+        padding: 5px;
+        margin: 5px;
+      }
+    }
+  }
+
+  .data-section {
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid darkgray;
+      &:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+      .lbl {
+        font-size: 16px;
+      }
+      .val {
+        font-size: 18px;
+      }
+    }
+  }
+}

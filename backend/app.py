@@ -14,6 +14,7 @@ CORS(app)
 
 def filter_request(request):
   req_headers = request.headers
+  print(req_headers)
   session_id = req_headers['Session-Token']
   user_id = req_headers['User-Id']
   print("In Filter request: {0}, {1}".format(session_id, user_id))
@@ -32,15 +33,15 @@ def login():
     if q.login_user(mobile_number) == 1:
       encrypted_password = pu.get_encrypted_val(password)
       print("encrypted_password: ", encrypted_password)
-      user_id = q.login_authenticate(mobile_number, encrypted_password)
-      if user_id != -1:
-        if q.check_active_session(user_id):
-          print('User {0} had active session'.format(user_id))
-          q.logout_user(user_id)
+      data = q.login_authenticate(mobile_number, encrypted_password)
+      if data != -1:
+        if q.check_active_session(data['user_id']):
+          print('User {0} had active session'.format(data['user_id']))
+          q.logout_user(data['user_id'])
         session_id = uuid.uuid1()
-        q.insert_user_session(str(session_id), user_id)
-        return jsonify({"code": "200", "message": "Login Successful", "session_id": str(session_id), "user_id": str(
-          user_id)})
+        q.insert_user_session(str(session_id), data['user_id'])
+        data['session_id'] = str(session_id)
+        return jsonify({"code": "200", "message": "Login Successful", "data" : data})
       else:
         return jsonify({"code": "201", "message": "Invalid credentials"})
     else:
