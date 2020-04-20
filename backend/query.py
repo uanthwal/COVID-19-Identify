@@ -108,12 +108,12 @@ def create_new_tracker(user_id, created_date):
     return False
 
 
-def deactivate_health_tracker():
+def deactivate_health_tracker(user_id):
   try:
     connection = db.open_connection()
     cursor = connection.cursor()
-    sql_update_query = """UPDATE tblHEALTH_TRACKER SET TRACKER_STATUS=%s """
-    record_tuple = ('0')
+    sql_update_query = """UPDATE tblHEALTH_TRACKER SET TRACKER_STATUS='0' WHERE USER_ID='%s'"""
+    record_tuple = (user_id)
     cursor.execute(sql_update_query, record_tuple)
     connection.commit()
     db.close_connection()

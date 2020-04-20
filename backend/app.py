@@ -99,6 +99,7 @@ def get_questions_by_day():
 
 def add_tracker_data(user_id, data):
   tracker_id = q.get_tracker_id_by_user_id(user_id)
+  print("Tracker Id: ", tracker_id)
   questions_ans_info = data['questionAndAnswersInfo']
   values_list = []
   for obj in questions_ans_info:
