@@ -19,8 +19,8 @@ export class DashboardHeatmapComponent implements OnInit {
         attribution: ""
       })
     ],
-    zoom: 12,
-    center: L.latLng(-37.87, 175.475)
+    zoom: 17,
+    center: L.latLng(44.641467, -63.587546)
   };
   constructor() { 
   }
