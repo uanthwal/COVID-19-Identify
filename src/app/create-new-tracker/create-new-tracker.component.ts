@@ -13,6 +13,7 @@ export class CreateNewTrackerComponent implements OnInit {
   day = 1;
   newTracker;
   responseSubmitted;
+  username;
   constructor(
     private _appService: AppService,
     private _router: Router,
@@ -25,6 +26,7 @@ export class CreateNewTrackerComponent implements OnInit {
         this._router.navigate(['/home']);
         return;
       }
+      this.username = this._appService.getUserData()['name'];
     });
   }
 

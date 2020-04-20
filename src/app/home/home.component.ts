@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     this._appService.getUserInfo({}).subscribe((data: {}) => {
       if (data['code'] == 200) {
         this.userInfo = data['data'];
+        this._appService.setUserData(this.userInfo);
       }
       this._appService
         .getUserHealthTracker({ userId: this._appService.getUserId() })

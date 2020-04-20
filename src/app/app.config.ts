@@ -11,7 +11,9 @@ export var URL_CONFIG = {
   GET_HEALTH_TRACKER: '/get-health-tracker',
   SAVE_DATA_FOR_DAY: '/save-data-for-day',
   GET_USER_INFO: '/get-user-info',
-  LOGOUT:'/logout'
+  LOGOUT:'/logout',
+  GET_SYMPTOMS: '/get-symptoms',
+  GET_ALL_ACTIVE_TRACKERS: '/get-all-active-trackers'
 };
 
 export function getConfigs() {

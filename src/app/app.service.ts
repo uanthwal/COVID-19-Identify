@@ -37,6 +37,14 @@ export class AppService {
     return JSON.parse(localStorage.getItem('u_id'));
   }
 
+  setUserData(data) {
+    localStorage.setItem('userInfo', JSON.stringify(data));
+  }
+
+  getUserData() {
+    return JSON.parse(localStorage.getItem('userInfo'));
+  }
+
   getTokenHeaders() {
     return {
       headers: new HttpHeaders({
@@ -153,7 +161,7 @@ export class AppService {
   getAllData(payload) {
     return this.http
       .post<any>(
-        URL_CONFIG.BASE_URL + URL_CONFIG.GET_ALLL_DATA_DASHBOARD,
+        URL_CONFIG.BASE_URL + URL_CONFIG.GET_ALL_ACTIVE_TRACKERS,
         JSON.stringify(payload),
         this.getTokenHeaders()
       )
