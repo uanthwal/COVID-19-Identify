@@ -1191,7 +1191,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             if (question.q_type == 'O') {
               var answerString = _this3.additionalComments;
-              tempQAObj['answer'] = answerString;
+              tempQAObj['answer'] = answerString == null || answerString == undefined ? "" : answerString;
             } else {
               var _answerString = answers.join(',');
 

@@ -72,7 +72,7 @@ export class CreateNewTrackerComponent implements OnInit {
       delete tempQAObj['options'];
       if (question.q_type == 'O') {
         let answerString = this.additionalComments;
-        tempQAObj['answer'] = answerString;
+        tempQAObj['answer'] = (answerString == null || answerString == undefined ? "": answerString);
       } else {
         let answerString = answers.join(',');
         tempQAObj['answer'] = answerString;
