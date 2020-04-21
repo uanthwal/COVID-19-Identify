@@ -15,11 +15,11 @@ export class DashboardHeatmapComponent implements OnInit {
   options = {
     layers: [
       L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 18,
+        maxZoom: 17,
         attribution: ""
       })
     ],
-    zoom: 17,
+    zoom: 15,
     center: L.latLng(44.641467, -63.587546)
   };
   constructor() { 
