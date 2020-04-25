@@ -14,6 +14,7 @@ export var URL_CONFIG = {
   LOGOUT: '/logout',
   GET_SYMPTOMS: '/get-symptoms',
   GET_ALL_ACTIVE_TRACKERS: '/get-active-trackers',
+  GET_WORLD_MAP_DATA: 'https://corona.lmao.ninja/v2/countries?yesterday=true',
 };
 
 export function getConfigs() {

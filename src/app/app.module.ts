@@ -17,6 +17,14 @@ import { DashboardDataComponent } from './dashboard-data/dashboard-data.componen
 import { DashboardVisualizationsComponent } from './dashboard-visualizations/dashboard-visualizations.component';
 import { DashboardHeatmapComponent } from './dashboard-heatmap/dashboard-heatmap.component';
 import { LeafletModule } from "@asymmetrik/ngx-leaflet";
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import highmaps from 'highcharts/modules/map.src';
+import more from 'highcharts/highcharts-more.src';
+
+export function highchartsModules() {
+  // apply Highcharts Modules to this array
+  return [more, highmaps];
+}
 
 @NgModule({
   declarations: [
@@ -37,9 +45,10 @@ import { LeafletModule } from "@asymmetrik/ngx-leaflet";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
+    ChartModule
   ],
-  providers: [AppService, AuthGuard],
+  providers: [AppService, AuthGuard, { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

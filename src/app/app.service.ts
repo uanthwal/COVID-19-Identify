@@ -176,6 +176,19 @@ export class AppService {
         catchError(this.handleError<any>('getSymptoms'))
       );
   }
+
+  getCoronaStatus() {
+    return this.http
+      .get<any>(
+        URL_CONFIG.GET_WORLD_MAP_DATA,
+        httpOptions
+      )
+      .pipe(
+        map(this.extractData),
+        catchError(this.handleError<any>('getCoronaStatus'))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
