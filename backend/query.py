@@ -271,3 +271,34 @@ def fetch_active_trackers():
         details.append(temp)
 
     return details
+
+def get_summary(mobile_number):
+    connection = db.open_connection()
+    cursor = connection.cursor()
+    sql_select_query = "SELECT USER_ID FROM USER_INFO where MOBILE_NUMBER = {0}".format(mobile_number)
+    cursor.execute(sql_select_query)
+    result_set = cursor.fetchall()
+    db.close_connection()
+
+    if len(result_set) > 0:
+        user_id = [i[0] for i in result_set][0]
+        connection = db.open_connection()
+        cursor = connection.cursor()
+        sql_select_query = "SELECT * FROM ANSWER_HISTORY LEFT JOIN FIXED_QUESTIONS ON ANSWER_HISTORY.QUESTION_ID = \
+        FIXED_QUESTIONS.QUESTION_ID WHERE TRACKER_ID = {0}".format(user_id)
+        cursor.execute(sql_select_query)
+        result_set = cursor.fetchall()
+
+        details = []
+
+        for row in result_set:
+            temp = {}
+            temp['ANSWER'] = row[4]
+            temp['QUESTION'] = row[7]
+            temp['DAY'] = row[2]
+            details.append(temp)
+
+        return details
+
+    else:
+        return "Number not found"
