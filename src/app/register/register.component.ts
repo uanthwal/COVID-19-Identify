@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
-
-
-
+import { MapChart } from 'angular-highcharts';
+import worldMap from './worldMap';
 
 @Component({
   templateUrl: 'register.component.html',
@@ -14,9 +13,11 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   agreementCheckbox: boolean;
   submitted;
+  mapChart: MapChart;
+  isLoading = true;
 
-// Postal Code dropdown
-/**
+  // Postal Code dropdown
+  /**
  showdropdown=false;
 postal=['B3J 2K9', 'B41 1H1', 'B3H 2Z3', 'B45 HJ6'];
 toggledropdown(){
@@ -59,6 +60,15 @@ getpostalcodeValue(){
       password: ['', [Validators.required, Validators.minLength(6)]],
       postalcode: ['', [Validators.required, Validators.minLength(6)]],
     });
+    this._appService.getCoronaStatus().subscribe((data: []) => {
+      let tempData = data.map((element) => {
+        element['code3'] = element['countryInfo']['iso3'];
+        element['z'] = element['cases'];
+        return element;
+      });
+      this.initMap(tempData);
+      this.isLoading = false;
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -96,5 +106,51 @@ getpostalcodeValue(){
 
   onClickSignIn() {
     this._router.navigate(['/login']);
+  }
+
+  initMap(data) {
+    let chartData = data;
+    this.mapChart = new MapChart({
+      chart: {
+        map: worldMap,
+    },
+      title: {
+        text: '',
+      },
+
+      subtitle: {
+        text: '',
+      },
+
+      legend: {
+        enabled: false,
+      },
+
+      mapNavigation: {
+        enabled: false,
+        buttonOptions: {
+          verticalAlign: 'bottom',
+        },
+      },
+
+      series: [
+        {
+          name: '',
+          color: 'green',
+          enableMouseTracking: false,
+        },
+        {
+          type: 'mapbubble',
+          name: ' ',
+          joinBy: ['iso-a3', 'code3'],
+          data: chartData,
+          minSize: 4,
+          maxSize: '12%',
+          tooltip: {
+            pointFormat: '{point.properties.name}: {point.z},  Cases Today: {point.todayCases}',
+          },
+        },
+      ],
+    });
   }
 }

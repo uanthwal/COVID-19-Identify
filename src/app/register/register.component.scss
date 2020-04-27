@@ -1,3 +1,14 @@
+.loading-icon {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: white;
+  text-align: center;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .invalid-feedback {
   text-align: left;
   color: red;
