@@ -184,6 +184,18 @@ def get_user_info():
 
     return jsonify({"code": "200", "data": data})
 
+@app.route('/get-summary', methods=['POST'])
+def get_summary():
+  # if not filter_request(request):
+  #   return jsonify({"code": "403", "message": "You are not Authorized to access this resource."})
+
+  if request.method == 'POST':
+    data = request.json
+    mobile_number = data['mobile_number']
+
+    data = q.get_summary(mobile_number)
+
+    return jsonify({"code": "200", "data": data})
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -200,15 +212,15 @@ def logout():
     return jsonify({"code": "212", "message": "Internal Server Error"})
 
 
+#------------------Dashbord API--------------------------
+
 @app.route('/get-symptoms', methods=['POST'])
 def get_symptoms():
     if request.method == 'POST':
         data = q.fetch_symptoms()
-
         return jsonify({"code": "200", "data": data})
 
 
-#------------------Dashbord API--------------------------
 @app.route('/get-active-trackers', methods=['POST'])
 def get_active_trackers():
     if request.method == 'POST':
