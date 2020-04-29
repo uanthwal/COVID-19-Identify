@@ -93,6 +93,9 @@ THE SOFTWARE.
 highcharts
 https://www.highcharts.com/license
 
+highcharts-angular
+SEE LICENSE IN <LICENSE>
+
 leaflet
 BSD-2-Clause
 Copyright (c) 2010-2018, Vladimir Agafonkin
