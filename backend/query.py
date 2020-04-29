@@ -2,6 +2,8 @@ import mysql
 
 import db as db
 from db import *
+import urllib.request
+import pandas as pd
 
 
 def login_user(mobile_number):
@@ -302,3 +304,17 @@ def get_summary(mobile_number):
 
     else:
         return "Number not found"
+
+def get_potive_graph():
+    url = 'https://health-infobase.canada.ca/src/data/covidLive/covid19.csv'
+    try:
+        urllib.request.urlretrieve(url, "covid19.csv")
+        df = pd.read_csv("covid19.csv")
+        df = df[df['prname'].dropna().str.contains("Nova Scotia")]
+        df = df.filter(['date', 'numconf','numtested','numrecover','numtoday'])
+        df_dict = df.set_index('date').T.to_dict('list')
+
+        return df_dict
+
+    except:
+        return "interal server error --dowloading csv"

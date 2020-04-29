@@ -1,5 +1,8 @@
 import uuid
 from datetime import datetime
+import datetime as dt
+import time
+import smtplib
 
 from flask import Flask
 from flask import request, jsonify
@@ -21,6 +24,26 @@ def filter_request(request):
   if q.check_user_session(session_id, user_id):
     return True
   return False
+
+def send_email():
+    print("1 sms")
+
+def send_email_at(send_time):
+    time.sleep(send_time.timestamp() - time.time())
+    send_email()
+    print('next sms')
+
+def start_routine_sms():
+    print("routine started")
+    n = datetime.today() + dt.timedelta(seconds=5)
+    # first_email_time = dt.datetime(2018,8,26,3,0,0) # set your sending time in UTC
+    interval = dt.timedelta(seconds=5) # set the interval for sending the email
+
+    send_time = n
+
+    while True:
+        send_email_at(send_time)
+        send_time = send_time + interval
 
 
 @app.route('/login', methods=['POST'])
@@ -228,6 +251,18 @@ def get_active_trackers():
 
         return jsonify({"code": "200", "data": data})
 
+@app.route('/positive-cases-graph', methods=['POST'])
+def get_potive_graph():
+    if request.method == 'POST':
+        data = q.get_potive_graph()
+
+        return jsonify({"code": "200", "data": data})
+
+    
+# @app.before_first_request
+# def startup():
+#     start_routine_sms()
 
 if __name__ == '__main__':
-  app.run(debug=True, host='0.0.0.0', port='5000')
+    app.run(debug=True, host='0.0.0.0', port='5000')
+    
