@@ -54,9 +54,9 @@ def login():
     mobile_number = data['mobile_number']
     password = data['password']
     if q.login_user(mobile_number) == 1:
-      encrypted_password = pu.get_encrypted_val(password)
-      print("encrypted_password: ", encrypted_password)
-      data = q.login_authenticate(mobile_number, encrypted_password)
+      # encrypted_password = pu.get_encrypted_val(password)
+      # print("encrypted_password: ", encrypted_password)
+      data = q.login_authenticate(mobile_number, password)
       if data != -1:
         if q.check_active_session(data['user_id']):
           print('User {0} had active session'.format(data['user_id']))
@@ -84,10 +84,10 @@ def signup():
     gender = 'NA'
     email = data['email']
     password = data['password']
-    encrypted_password = pu.get_encrypted_val(password)
-    print("encrypted_password: ", encrypted_password)
+    # encrypted_password = pu.get_encrypted_val(password)
+    # print("encrypted_password: ", encrypted_password)
     if q.login_user(mobile_number) == 0:
-      if q.signup_insert(name, date_of_birth, address, postal_code, mobile_number, gender, email, encrypted_password):
+      if q.signup_insert(name, date_of_birth, address, postal_code, mobile_number, gender, email, password):
         return jsonify({"code": "200", "message": "User registered successfully"})
       else:
         return jsonify({"code": "500", "message": "Internal Server error"})
@@ -251,18 +251,19 @@ def get_active_trackers():
 
         return jsonify({"code": "200", "data": data})
 
+
 @app.route('/positive-cases-graph', methods=['POST'])
-def get_potive_graph():
+def get_positive_graph():
     if request.method == 'POST':
-        data = q.get_potive_graph()
+      data = request.json
+      res_data = q.get_positive_graph(data['month'])
+      return jsonify({"code": "200", "data": res_data})
 
-        return jsonify({"code": "200", "data": data})
 
-    
 # @app.before_first_request
 # def startup():
 #     start_routine_sms()
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port='5000')
-    
+

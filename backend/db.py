@@ -6,6 +6,7 @@ def open_connection():
   global _connection
   try:
     _connection = mysql.connector.connect(host='localhost',
+                                          port=3306,
                                           database='identify',
                                           user='root',
                                           password='root@123')

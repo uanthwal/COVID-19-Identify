@@ -52,7 +52,7 @@ export class AppService {
       }),
     };
   }
-  
+
   getQuestionByDay(payload) {
     return this.http
       .post<any>(
@@ -179,13 +179,23 @@ export class AppService {
 
   getCoronaStatus() {
     return this.http
-      .get<any>(
-        URL_CONFIG.GET_WORLD_MAP_DATA,
+      .get<any>(URL_CONFIG.GET_WORLD_MAP_DATA, httpOptions)
+      .pipe(
+        map(this.extractData),
+        catchError(this.handleError<any>('getCoronaStatus'))
+      );
+  }
+
+  getPositiveCases(payload) {
+    return this.http
+      .post<any>(
+        URL_CONFIG.BASE_URL + URL_CONFIG.GET_POSITIVE_CASES,
+        JSON.stringify(payload),
         httpOptions
       )
       .pipe(
         map(this.extractData),
-        catchError(this.handleError<any>('getCoronaStatus'))
+        catchError(this.handleError<any>('getPositiveCases'))
       );
   }
 

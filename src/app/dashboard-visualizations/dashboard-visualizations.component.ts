@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { AppService } from '../app.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-visualizations',
@@ -7,18 +9,94 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./dashboard-visualizations.component.scss'],
 })
 export class DashboardVisualizationsComponent implements OnInit {
+  monthsList;
   highcharts = Highcharts;
   caseByGenderChartOptions;
   regionBarGraphOptions;
   posNegChartOptions;
   pieChartOptions;
-  constructor() {}
+  positiveCasesGraphOptions;
+  monthSelected = 'April';
+  constructor(private _appService: AppService) {}
 
   ngOnInit(): void {
+    this.monthsList = ['March', 'April', 'May'];
     this.highcharts = Highcharts;
     this.createCaseByGenderChart();
     this.createPosNegChart();
     this.createRegionGraph();
+    this.getPositiveCases('April');
+  }
+
+  onMonthChange(month) {
+    this.getPositiveCases(month);
+  }
+
+  getPositiveCases(month) {
+    let pipe = new DatePipe('en-US');
+    this._appService
+      .getPositiveCases({ month: month })
+      .subscribe((data: {}) => {
+        if (data['code'] == 200) {
+          let tempData = data['data'];
+          let datesList = [];
+          let confirmedCases = [];
+          let todaysCases = [];
+          
+          tempData.forEach((element) => {
+            datesList.push(element.date);
+            // datesList.push(pipe.transform(element.date, 'short'));
+            confirmedCases.push(element.numconf);
+            todaysCases.push(element.numtoday);
+          });
+          this.positiveCasesGraphOptions = {};
+          this.createPositiveCasesGraph(datesList, confirmedCases, todaysCases);
+        } else {
+          alert(data['message']);
+        }
+      });
+  }
+
+  createPositiveCasesGraph(datesList, confirmedCases, todaysCases) {
+    this.positiveCasesGraphOptions = {
+      chart: {
+        type: 'spline',
+      },
+      title: {
+        text: 'Monthly statistics',
+      },
+      subtitle: {
+        text: 'Source: NSHA',
+      },
+      xAxis: {
+        categories: datesList,
+      },
+      yAxis: {
+        title: {
+          text: 'Number of Cases',
+        },
+      },
+      plotOptions: {
+        series: {
+          dataLabels: {
+            enabled: true,
+          },
+        },
+      },
+      tooltip: {
+        valueSuffix: ' ',
+      },
+      series: [
+        {
+          name: 'Confirmed Cases',
+          data: confirmedCases,
+        },
+        {
+          name: 'Today\'s Cases',
+          data: todaysCases,
+        },
+      ],
+    };
   }
 
   createPosNegChart() {
