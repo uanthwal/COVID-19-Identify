@@ -20,6 +20,7 @@ import { LeafletModule } from "@asymmetrik/ngx-leaflet";
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import highmaps from 'highcharts/modules/map.src';
 import more from 'highcharts/highcharts-more.src';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 export function highchartsModules() {
   // apply Highcharts Modules to this array
@@ -46,7 +47,8 @@ export function highchartsModules() {
     FormsModule,
     ReactiveFormsModule,
     LeafletModule.forRoot(),
-    ChartModule
+    ChartModule,
+    HighchartsChartModule
   ],
   providers: [AppService, AuthGuard, { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }],
   bootstrap: [AppComponent]

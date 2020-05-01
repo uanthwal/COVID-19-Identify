@@ -1,4 +1,9 @@
+import ssl
+
 import mysql
+import numpy as np
+import pandas as pd
+import urllib.request
 
 import db as db
 from db import *
@@ -239,86 +244,75 @@ def check_active_session(user_id):
     print("Failed in logout_user {}".format(error))
     return False
 
+
 def fetch_symptoms():
-    connection = db.open_connection()
-    cursor = connection.cursor()
-    sql_select_query = "SELECT OPTIONS FROM FIXED_QUESTIONS WHERE Q_TYPE = '{0}'".format("M")
-    cursor.execute(sql_select_query)
-    result_set = cursor.fetchall()
-    db.close_connection()
-    symptoms = set()
+  connection = db.open_connection()
+  cursor = connection.cursor()
+  sql_select_query = "SELECT OPTIONS FROM FIXED_QUESTIONS WHERE Q_TYPE = '{0}'".format("M")
+  cursor.execute(sql_select_query)
+  result_set = cursor.fetchall()
+  db.close_connection()
+  symptoms = set()
 
-    for each in result_set:
-        for s in each:
-            for e in s.split(","):
-                symptoms.add(e)
+  for each in result_set:
+    for s in each:
+      for e in s.split(","):
+        symptoms.add(e)
 
-    return [i for i in iter(symptoms)]
+  return [i for i in iter(symptoms)]
+
 
 def fetch_active_trackers():
+  connection = db.open_connection()
+  cursor = connection.cursor()
+  sql_select_query = "SELECT * FROM HEALTH_TRACKER left join USER_INFO ON HEALTH_TRACKER.USER_ID = USER_INFO.USER_ID"
+  cursor.execute(sql_select_query)
+  result_set = cursor.fetchall()
+  db.close_connection()
+  details = []
+
+  for row in result_set:
+    temp = {}
+    temp['date_time'] = row[2]
+    temp['name'] = row[5]
+    temp['postal_code'] = row[8]
+    temp['mobile_number'] = row[9]
+    temp['email'] = row[11]
+    details.append(temp)
+
+  return details
+
+
+def get_summary(mobile_number):
+  connection = db.open_connection()
+  cursor = connection.cursor()
+  sql_select_query = "SELECT USER_ID FROM USER_INFO where MOBILE_NUMBER = {0}".format(mobile_number)
+  cursor.execute(sql_select_query)
+  result_set = cursor.fetchall()
+  db.close_connection()
+
+  if len(result_set) > 0:
+    user_id = [i[0] for i in result_set][0]
     connection = db.open_connection()
     cursor = connection.cursor()
-    sql_select_query = "SELECT * FROM HEALTH_TRACKER left join USER_INFO ON HEALTH_TRACKER.USER_ID = USER_INFO.USER_ID"
+    sql_select_query = "SELECT * FROM ANSWER_HISTORY LEFT JOIN FIXED_QUESTIONS ON ANSWER_HISTORY.QUESTION_ID = \
+        FIXED_QUESTIONS.QUESTION_ID WHERE TRACKER_ID = {0}".format(user_id)
     cursor.execute(sql_select_query)
     result_set = cursor.fetchall()
-    db.close_connection()
+
     details = []
 
     for row in result_set:
-        temp = {}
-        temp['date_time'] = row[2]
-        temp['name'] = row[5]
-        temp['postal_code'] = row[8]
-        temp['mobile_number'] = row[9]
-        temp['email'] = row[11]
-        details.append(temp)
+      temp = {}
+      temp['ANSWER'] = row[4]
+      temp['QUESTION'] = row[7]
+      temp['DAY'] = row[2]
+      details.append(temp)
 
     return details
 
-def get_summary(mobile_number):
-    connection = db.open_connection()
-    cursor = connection.cursor()
-    sql_select_query = "SELECT USER_ID FROM USER_INFO where MOBILE_NUMBER = {0}".format(mobile_number)
-    cursor.execute(sql_select_query)
-    result_set = cursor.fetchall()
-    db.close_connection()
-
-    if len(result_set) > 0:
-        user_id = [i[0] for i in result_set][0]
-        connection = db.open_connection()
-        cursor = connection.cursor()
-        sql_select_query = "SELECT * FROM ANSWER_HISTORY LEFT JOIN FIXED_QUESTIONS ON ANSWER_HISTORY.QUESTION_ID = \
-        FIXED_QUESTIONS.QUESTION_ID WHERE TRACKER_ID = {0}".format(user_id)
-        cursor.execute(sql_select_query)
-        result_set = cursor.fetchall()
-
-        details = []
-
-        for row in result_set:
-            temp = {}
-            temp['ANSWER'] = row[4]
-            temp['QUESTION'] = row[7]
-            temp['DAY'] = row[2]
-            details.append(temp)
-
-        return details
-
-    else:
-        return "Number not found"
-
-def get_potive_graph():
-    url = 'https://health-infobase.canada.ca/src/data/covidLive/covid19.csv'
-    try:
-        urllib.request.urlretrieve(url, "covid19.csv")
-        df = pd.read_csv("covid19.csv")
-        df = df[df['prname'].dropna().str.contains("Nova Scotia")]
-        df = df.filter(['date', 'numconf','numtested','numrecover','numtoday'])
-        df_dict = df.set_index('date').T.to_dict('list')
-
-        return df_dict
-
-    except:
-        return "interal server error --dowloading csv"
+  else:
+    return "Number not found"
 
 def get_prediction_five():
     try:
@@ -339,3 +333,35 @@ def get_prediction_five():
         return df[-5:].set_index('ds').T.to_dict()
     except:
         return "iternal serve error"
+
+def get_positive_graph(month):
+  month_number = 3
+  if month == "May":
+    month_number = 5
+  if month == "April":
+    month_number = 4
+  url = 'https://health-infobase.canada.ca/src/data/covidLive/covid19.csv'
+  try:
+    ssl._create_default_https_context = ssl._create_unverified_context
+    urllib.request.urlretrieve(url, "covid19.csv")
+    df = pd.read_csv("covid19.csv")
+    df = df[df['prname'].dropna().str.contains("Nova Scotia")]
+    df = df.filter(['date', 'numconf', 'numtested', 'numrecover', 'numtoday'])
+    df = df.replace(np.nan, 0)
+    start_date = pd.to_datetime('01-0' + str(month_number) + '-2020', format='%d-%m-%Y').date()
+    end_date = pd.to_datetime('30-0' + str(month_number) + '-2020', format='%d-%m-%Y').date()
+    df['date'] = pd.to_datetime(df['date'], format='%d-%m-%Y')
+    df['date'] = df['date'].dt.date
+    after_start_date = df["date"] >= start_date
+    before_end_date = df["date"] <= end_date
+    between_two_dates = after_start_date & before_end_date
+    df = df.loc[between_two_dates]
+    df['date'] = pd.to_datetime(df['date']).dt.normalize()
+    dictionary1 = df.to_dict(orient="index")
+    data_list = []
+    for key in dictionary1:
+      data_list.append(dictionary1[key])
+    return data_list
+  except urllib.error.URLError as error:
+    print(error)
+    return "interal server error --dowloading csv"

@@ -1,0 +1,24 @@
+.visual-1 {
+    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.visual-2 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .month-drpdwn {
+        padding: 10px;
+    }
+}
+
+.visual-3 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
