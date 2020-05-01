@@ -8,7 +8,7 @@ def open_connection():
     _connection = mysql.connector.connect(host='localhost',
                                           database='identify',
                                           user='root',
-                                          password='root@123')
+                                          password='vish591996')
     # print("MySQL connection is opened")
     return _connection
   except Error as e:
@@ -19,3 +19,11 @@ def close_connection():
   if _connection.is_connected():
     _connection.close()
     # print("MySQL connection is closed")
+
+
+#message = client.messages \ 
+   # ...:     .create( 
+   # ...:          body="Join Earth's mightiest heroes. Like Kevin Bacon.", 
+   # ...:          to='+19027186591', 
+   # ...:          from_='+19029122586' 
+   # ...:      )  
