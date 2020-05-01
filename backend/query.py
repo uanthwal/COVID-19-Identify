@@ -4,6 +4,7 @@ import db as db
 from db import *
 import urllib.request
 import pandas as pd
+from fbprophet import Prophet
 
 
 def login_user(mobile_number):
@@ -318,3 +319,23 @@ def get_potive_graph():
 
     except:
         return "interal server error --dowloading csv"
+
+def get_prediction_five():
+    try:
+        mydateparser = lambda x: pd.datetime.strptime(x, "%d-%m-%Y")
+        df = pd.read_csv("covid19.csv", parse_dates=['date'], date_parser=mydateparser)
+        df = df[df['prname'].dropna().str.contains("Nova Scotia")]
+        df = df.filter(['date','numtoday'])
+        df.columns = ['ds', 'y']
+
+        m = Prophet()
+        m.fit(df)
+        future = m.make_future_dataframe(periods=5)
+        forecast = m.predict(future)
+        df = forecast[['ds', 'yhat']]
+        df["yhat"] = df["yhat"].astype(int)
+        df["ds"] = df["ds"].astype(str)
+
+        return df[-5:].set_index('ds').T.to_dict()
+    except:
+        return "iternal serve error"
