@@ -258,6 +258,13 @@ def get_potive_graph():
 
         return jsonify({"code": "200", "data": data})
 
+@app.route('/get_prediction_five', methods=['POST'])
+def get_prediction_five():
+    if request.method == 'POST':
+        data = q.get_prediction_five()
+
+        return jsonify({"code": "200", "data": data})
+
     
 # @app.before_first_request
 # def startup():
