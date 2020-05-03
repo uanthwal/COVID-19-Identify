@@ -21,6 +21,10 @@ import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import highmaps from 'highcharts/modules/map.src';
 import more from 'highcharts/highcharts-more.src';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalComponent } from './modal/modal.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export function highchartsModules() {
   // apply Highcharts Modules to this array
@@ -38,7 +42,8 @@ export function highchartsModules() {
     FilterPipe,
     DashboardDataComponent,
     DashboardVisualizationsComponent,
-    DashboardHeatmapComponent
+    DashboardHeatmapComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,9 @@ export function highchartsModules() {
     ReactiveFormsModule,
     LeafletModule.forRoot(),
     ChartModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [AppService, AuthGuard, { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }],
   bootstrap: [AppComponent]

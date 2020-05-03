@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-dashboard-data',
@@ -11,7 +13,7 @@ export class DashboardDataComponent implements OnInit {
   filterList = [];
   filterOptions = [];
   dataList = [];
-  constructor(private _appService: AppService) {
+  constructor(private _appService: AppService, public matDialog: MatDialog) {
     this.filterList = [
       { name: 'Age', selected: false },
       { name: 'Symptoms', selected: false },
@@ -19,6 +21,7 @@ export class DashboardDataComponent implements OnInit {
       { name: 'Postal Code', selected: false },
     ];
   }
+
 
   ngOnInit(): void {
     this._appService.getAllData({}).subscribe((data: {}) => {
@@ -54,8 +57,8 @@ export class DashboardDataComponent implements OnInit {
     } else if (filter.name == 'Postal Code') {
     }
   }
-  
-  onClickFilterOption(option) {}
+
+  onClickFilterOption(option) { }
 
   prepareFilterOptions(tempList) {
     let newList = tempList.map(_ => {
@@ -63,4 +66,16 @@ export class DashboardDataComponent implements OnInit {
     });
     return newList;
   }
+
+  openModal() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.id = "modal-component";
+    dialogConfig.height = "350px";
+    dialogConfig.width = "600px";
+    // https://material.angular.io/components/dialog/overview
+    const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
+
+  }
 }
+
+

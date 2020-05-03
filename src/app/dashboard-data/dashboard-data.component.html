@@ -16,7 +16,7 @@
   </div> -->
 
   <div class="data-section">
-    <div class="card" *ngFor="let record of dataList">
+    <div class="card" *ngFor="let record of dataList" (click)="openModal()">
       <div>
         <span class="lbl">Name: </span>
         <span class="val">{{ record.name }}</span>
