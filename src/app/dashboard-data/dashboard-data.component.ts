@@ -74,8 +74,5 @@ export class DashboardDataComponent implements OnInit {
     dialogConfig.width = "600px";
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
-
   }
 }
-
-
