@@ -9,16 +9,17 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ModalComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<ModalComponent>) { }
+  constructor(public dialogRef: MatDialogRef<ModalComponent>, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
   }
 
 
   // When the user clicks the action button a.k.a. the logout button in the\
   // modal, show an alert and followed by the closing of the modal
   actionFunction() {
-    alert("You have logged out.");
+    alert("this is not supposed to be showing");
     this.closeModal();
   }
 
