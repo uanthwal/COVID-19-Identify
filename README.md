@@ -1,7 +1,8 @@
 # COVID-19: Identify
 
 A web application that helps individuals to track their health on daily basis. How it works?
-User signsup on the platform >
+
+User signs-up on the platform >
 
 User fills up all the basic details > 
 
