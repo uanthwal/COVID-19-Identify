@@ -10,4 +10,6 @@ User creates a health-tracker >
 
 Once a health tracker is created, users are asked to answer a few questions >
 
-The data is stored for Day 1 >  Then the user
+The data is stored for Day 1 >
+
+A reminder is sent to all the active users on daily basis.
